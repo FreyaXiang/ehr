@@ -1,0 +1,12 @@
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto 30px;
+}
+
+.page-container {
+    margin: 50px 150px auto 20%;
+    width: 66%;
+}
+
