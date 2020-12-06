@@ -23,6 +23,30 @@ const UserSchema = new Schema({
     type: String,
     require: true,
   },
+  appointments: {
+    type: Array,
+    default: [],
+  },
+  patients: {
+    type: Array,
+    default: function () {
+      if (this.role === "staff") {
+        return [];
+      } else if (this.role === "patient") {
+        return null;
+      }
+    },
+  },
+  staff: {
+    type: Array,
+    default: function () {
+      if (this.role === "staff") {
+        return null;
+      } else if (this.role === "patient") {
+        return [];
+      }
+    },
+  },
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

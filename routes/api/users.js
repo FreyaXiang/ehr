@@ -8,6 +8,7 @@ const passport = require("passport");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateAddPatientInput = require("../../validation/addPatient");
 
 // Load User model
 const User = require("../../models/User");
@@ -33,6 +34,7 @@ router.post("/register", (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
+        role: req.body.role,
       });
 
       // Hash password before saving in database
@@ -103,6 +105,55 @@ router.post("/login", (req, res) => {
           .json({ passwordincorrect: "Password incorrect" });
       }
     });
+  });
+});
+
+// get user info by _id
+router.get("/dashboard/:userId", (req, res) => {
+  User.findOne({ _id: req.params.userId }, function (err, foundUser) {
+    if (foundUser) {
+      res.send(foundUser);
+    } else {
+      res.send("No User was found.");
+    }
+  });
+});
+
+// add patient
+router.post("/patient", (req, res) => {
+  // Form validation
+
+  const { errors, isValid } = validateAddPatientInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  // const email = req.body.email;
+  var userAdd;
+  // Find user by email
+  User.findOne({ email: req.body.email }).then((user) => {
+    userAdd = user;
+    // Check if user exists
+    if (!user) {
+      res.send("Email not found");
+    }
+
+    // Check if user is a patient
+    if (user.role == "staff") {
+      res.send("The user is not a patient");
+    }
+  });
+
+  User.findOne({ _id: req.body.id }, function (err, foundUser) {
+    if (foundUser) {
+      foundUser.patients.push(userAdd);
+      res.send("Success!");
+      foundUser.save();
+    } else {
+      res.send("No User was found.");
+    }
   });
 });
 

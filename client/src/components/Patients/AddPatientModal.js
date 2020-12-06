@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 class AddPatientModal extends Component {
   componentDidMount() {
@@ -25,20 +27,12 @@ class AddPatientModal extends Component {
       endingTop: "10%",
     };
     M.Modal.init(this.Modal, options);
-
-    // let instance = M.Modal.getInstance(this.Modal);
-    // instance.open();
-    // instance.close();
-    // instance.destroy();
   }
 
   constructor(props) {
     super();
     this.state = {
-      name: "",
       email: "",
-      id: "",
-      tel: "",
       errors: {},
     };
   }
@@ -47,18 +41,22 @@ class AddPatientModal extends Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    const newUser = {
-      name: this.state.name,
+    const newPatient = {
+      id: jwt_decode(localStorage.jwtToken).id,
       email: this.state.email,
-      id: this.state.id,
-      tel: this.state.tel,
     };
-    this.props.onAdd(newUser);
+
+    // sent an post request to api to add patient
+    axios
+      .post("/api/users/patient", newPatient)
+      .then((res) => {
+        console.log(res.data);
+        alert(res.data);
+      })
+      .catch((err) => alert("Add patient failed"));
+    // this.props.onAdd(newPatient);
     this.setState({
-      name: "",
       email: "",
-      id: "",
-      tel: "",
       errors: {},
     });
   };
@@ -80,44 +78,12 @@ class AddPatientModal extends Component {
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.name}
-                  error={errors.name}
-                  id="name"
-                  type="text"
-                />
-                <label htmlFor="name">Name</label>
-              </div>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
                   value={this.state.email}
                   error={errors.email}
                   id="email"
                   type="email"
                 />
-                <label htmlFor="email">Email</label>
-              </div>
-
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.id}
-                  error={errors.id}
-                  id="id"
-                  type="tel"
-                />
-                <label htmlFor="id">ID</label>
-              </div>
-
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.tel}
-                  error={errors.tel}
-                  id="tel"
-                  type="tel"
-                />
-                <label htmlFor="tel">Tel</label>
+                <label htmlFor="email">Patient Email</label>
               </div>
 
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>

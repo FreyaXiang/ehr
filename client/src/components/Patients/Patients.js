@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PatientCard from "./PatientCard";
 import AddPatientModal from "./AddPatientModal";
-import { getPeopleList } from "../../actions/authActions";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+
 import "./PageContainer.css";
 
 const patientInfo = [];
@@ -11,13 +13,32 @@ const patientInfo = [];
 // { name: "Tom Liu", Tel: "123445677", Email: "abc@xxx.com" },
 
 export default function Patients(props) {
-  const [patients, setPatient] = useState(patientInfo);
+  const [patients, setPatient] = useState([]);
 
   function addPatient(newPatient) {
     setPatient((prev) => {
       return [...prev, newPatient];
     });
   }
+
+  // fecth data from api
+  useEffect(() => {
+    async function fetchData() {
+      const token = localStorage.jwtToken;
+      // Decode token and get user info and exp
+      const decoded = jwt_decode(token);
+      const url = "/api/users/dashboard/" + decoded.id;
+      const res = await axios.get(url);
+      const data = await res.data;
+      console.log(data.patients);
+      setPatient(data.patients);
+      return data.patients;
+    }
+    var data = fetchData();
+    console.log(data);
+  }, []);
+
+  console.log(patients);
 
   return (
     <div>
