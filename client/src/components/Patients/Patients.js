@@ -4,7 +4,7 @@ import AddPatientModal from "./AddPatientModal";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import "./PageContainer.css";
+import "../PageContainer.css";
 
 const patientInfo = [];
 

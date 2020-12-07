@@ -5,9 +5,17 @@ const role_sidebarinfo = {
     "Prescriptions",
     "Medical Records",
     "My Insurance Plan",
+    "Messages",
     "Settings",
   ],
-  staff: ["Dashboard", "Patients", "Appointments", "Messages", "Settings"],
+  staff: [
+    "Dashboard",
+    "Patients",
+    "Appointments",
+    "Messages",
+    "Drugs",
+    "Settings",
+  ],
   insurance: ["Clients", "Settings"],
 };
 

@@ -4,16 +4,33 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Sidebar from "../Sidebar/Sidebar";
 
+import RemediRecord from "../RemediRecord";
+import Appointments from "../Appointments";
+import Clients from "../Clients";
+import InsurancePlan from "../InsurancePlan";
+import Messages from "../Messages";
 import Patients from "../Patients/Patients";
+import Prescriptions from "../Prescriptions";
+import Settings from "../Settings";
+import Records from "../Records";
+import Drugs from "../Drugs";
 
 const sidebar_to_comp = {
+  "My Re-medi Health Record": <RemediRecord />,
+  Appointments: <Appointments />,
+  Prescriptions: <Prescriptions />,
+  "Medical Records": <Records />,
+  "My Insurance Plan": <InsurancePlan />,
+  Settings: <Settings />,
+  Messages: <Messages />,
+  Clients: <Clients />,
   Patients: <Patients />,
+  Drugs: <Drugs />,
   Dashboard: null,
 };
 
@@ -86,16 +103,19 @@ class Dashboard extends Component {
           <div>
             <Header role={this.state.role} onLogoutClick={this.onLogoutClick} />
             <Sidebar
-              role={this.state.name.split(" ")[0]}
+              role={this.state.role}
               onClick={this.handleClick}
               selected={this.state.dashpagename}
             />
 
-            <div style={{ height: "75vh" }} className="">
+            <div className="">
               <div className="row">
                 <div className="dash-page">
                   {this.state.dashpage === null ? (
-                    <div className="landing-copy col s12 center-align">
+                    <div
+                      style={{ height: "75vh" }}
+                      className="landing-copy col s12 center-align"
+                    >
                       <h4>
                         <b>Hey there,</b> {user.name.split(" ")[0]}
                         <p className="flow-text grey-text text-darken-1">

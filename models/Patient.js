@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
-const UserSchema = new Schema({
+const PatientSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -19,56 +19,33 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  role: {
+  height: {
     type: String,
-    require: true,
+    required: [true, "Height is required"],
   },
-  appointments: {
-    type: Array,
-    default: [],
+  weight: {
+    type: String,
+    required: [true, "Weight is required"],
   },
-  patients: {
-    type: Array,
-    default: function () {
-      if (this.role === "staff") {
-        return [];
-      } else if (this.role === "patient") {
-        return null;
-      }
-    },
+  identityCardNo: {
+    type: String,
+    required: true,
   },
-  staff: {
-    type: Array,
-    default: function () {
-      if (this.role === "staff") {
-        return null;
-      } else if (this.role === "patient") {
-        return [];
-      }
-    },
+  birth: {
+    type: String,
+    required: [true, "birth date is required"],
+  },
+  gender: {
+    type: String,
+    required: [true, "gender is required"],
+  },
+  address: {
+    type: String,
+    required: [true, "address is required"],
   },
   messages: {
     type: Array,
     default: [],
-  },
-  height: {
-    type: String,
-    default: "",
-  },
-  weight: {
-    type: String,
-  },
-  identityCardNo: {
-    type: String,
-  },
-  birth: {
-    type: String,
-  },
-  gender: {
-    type: String,
-  },
-  address: {
-    type: String,
   },
   allergies: {
     type: Array,
@@ -90,12 +67,14 @@ const UserSchema = new Schema({
     type: Array,
     default: [],
   },
-  org: {
-    type: String,
+  appointments: {
+    type: Array,
+    default: [],
   },
-  workId: {
-    type: String,
+  healthcare_plans: {
+    type: Array,
+    default: [],
   },
 });
 
-module.exports = User = mongoose.model("users", UserSchema);
+module.exports = User = mongoose.model("patients", PatientSchema);

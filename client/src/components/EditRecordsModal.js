@@ -4,7 +4,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-class AddPatientModal extends Component {
+class EditRecordsModal extends Component {
   async componentDidMount() {
     const options = {
       onOpenStart: () => {
@@ -27,26 +27,13 @@ class AddPatientModal extends Component {
       endingTop: "10%",
     };
     M.Modal.init(this.Modal, options);
-    const token = localStorage.jwtToken;
-    // Decode token and get user info and exp
-    const decoded = jwt_decode(token);
-    const url = "/api/users/dashboard/" + decoded.id;
-    const res = await axios.get(url);
-    const data = await res.data;
-    this.setState({
-      doctorName: data.name,
-      doctorEmail: data.email,
-    });
-    console.log(this.state);
   }
 
   constructor(props) {
     super();
     this.state = {
-      email: "",
-      comments: "",
-      doctorName: null,
-      doctorEmail: "",
+      item: "",
+      changes: "",
       errors: {},
     };
   }
@@ -55,26 +42,29 @@ class AddPatientModal extends Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    const newPatient = {
-      id: jwt_decode(localStorage.jwtToken).id,
-      email: this.state.email,
-      doctorName: this.state.doctorName,
-      doctorEmail: this.state.doctorEmail,
-      comments: this.state.comments,
+    const token = localStorage.jwtToken;
+    // Decode token and get user info and exp
+    const decoded = jwt_decode(token);
+    const newInfo = {
+      id: decoded.id,
+      item: this.state.item,
+      changes: this.state.changes,
     };
-    console.log(newPatient);
-    // sent an post request to api to add patient
+
+    console.log(newInfo);
+
+    // sent an post request to api to update information
     axios
-      .post("/api/users/patient", newPatient)
+      .post("/api/users/updateBasics", newInfo)
       .then((res) => {
         console.log(res.data);
         alert(res.data);
       })
-      .catch((err) => alert("Add patient failed"));
+      .catch((err) => alert("Edit Information failed"));
     // this.props.onAdd(newPatient);
     this.setState({
-      email: "",
-      comments: "",
+      item: "",
+      changes: "",
       errors: {},
     });
   };
@@ -87,30 +77,30 @@ class AddPatientModal extends Component {
           ref={(Modal) => {
             this.Modal = Modal;
           }}
-          id="modal1"
+          id="modal3"
           className="modal"
         >
           <div className="modal-content">
-            <h4>Add New Patient</h4>
+            <h4>Edit Your Health Information</h4>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
+                  value={this.state.item}
+                  error={errors.item}
+                  id="item"
+                  type="text"
                 />
-                <label htmlFor="email">Patient Email</label>
+                <label htmlFor="item">What you want to change</label>
               </div>
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.comments}
-                  id="comments"
+                  value={this.state.changes}
+                  id="changes"
                   type="text"
                 />
-                <label htmlFor="email">Comments</label>
+                <label htmlFor="changes">Your changes here</label>
               </div>
 
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
@@ -122,9 +112,9 @@ class AddPatientModal extends Component {
                     marginTop: "1rem",
                   }}
                   type="submit"
-                  className="modal-close btn btn-large waves-effect hoverable red darken-3"
+                  className="modal-close btn btn-large waves-effect hoverable blue darken-3"
                 >
-                  Add
+                  Save
                 </button>
               </div>
             </form>
@@ -140,4 +130,4 @@ class AddPatientModal extends Component {
   }
 }
 
-export default AddPatientModal;
+export default EditRecordsModal;
