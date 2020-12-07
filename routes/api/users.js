@@ -13,6 +13,8 @@ const validateAddPatientInput = require("../../validation/addPatient");
 // Load User model
 const User = require("../../models/User");
 const Request = require("../../models/Request");
+const Appointment = require("../../models/record");
+const HealthRecord = require("../../models/record");
 
 // @route POST api/users/register
 // @desc Register user
@@ -203,7 +205,6 @@ router.put("/messages/:patientStaffIndex", (req, res) => {
     foundUser.messages.splice(index, 1);
     foundUser.staff.push({ name: staffName, id: staffId });
     foundUser.save();
-    // res.send("" + foundUser.staff.length);
   });
   User.findOne({ _id: staffId }, function (err, foundUser) {
     if (foundUser) {
@@ -218,17 +219,10 @@ router.put("/messages/:patientStaffIndex", (req, res) => {
       foundUser.save();
       res.send("" + foundUser.patients);
     }
-    // foundUser.patient.push({ name: staffName, id: staffId });
-    // // foundUsers[1].staff.push(foundUsers[0]);
-    // // send request to patient
-
-    // user.messages.push(newRequest);
-    // user.save();
-    // res.send("Success");
   });
 });
 
-// update user info
+// update user health basics
 router.post("/updateBasics", (req, res) => {
   if (
     req.body.item.toLowerCase() !== "birthday" &&
@@ -238,27 +232,98 @@ router.post("/updateBasics", (req, res) => {
   ) {
     res.send("Invalid Changes");
   }
-  var update = req.body.item.toLowerCase();
-  if (req.body.item.toLowerCase() === "birthday") {
-    update = "birth";
-  }
-
-  User.updateOne({ _id: req.body.id }, { $set: { height: 162 } });
-  //   if (user) {
-  //     if (update === "birth") {
-  //       user.birth = req.body.changes;
-  //       user.save();
-  //     } else if (update === "height") {
-  //       user.height = req.body.changes;
-  //     } else if (update === "weight") {
-  //       user.weight = req.body.changes;
-  //     } else {
-  //       user.gender = req.body.changes;
-  //     }
-  //     user.save();
-  //     res.send("" + user.height);
-  //   }
-  // });
+  User.findOne({ _id: req.body.id }, function (err, foundUser) {
+    if (req.body.item === "birthday") {
+      foundUser.birth = req.body.changes;
+    } else if (req.body.item === "weight") {
+      foundUser.weight = req.body.changes;
+    } else if (req.body.item === "height") {
+      foundUser.height = req.body.changes;
+    } else {
+      foundUser.gender = req.body.changes;
+    }
+    foundUser.save();
+    res.send("" + foundUser.height);
+  });
 });
 
+// update user allergy and disability
+router.post("/addHealthInfo", (req, res) => {
+  if (
+    req.body.item.toLowerCase() !== "allergy" &&
+    req.body.item.toLowerCase() !== "disability"
+  ) {
+    res.send("Invalid Add");
+  }
+  User.findOne({ _id: req.body.id }, function (err, foundUser) {
+    if (req.body.item === "allergy") {
+      foundUser.allergies.push(req.body.changes);
+    } else if (req.body.item === "disability") {
+      foundUser.disabilities.push(req.body.changes);
+    }
+    foundUser.save();
+    res.send("" + foundUser.allergies);
+  });
+});
+
+// send user appointment request to doctor
+router.post("/sendAppointRequest", (req, res) => {
+  User.findOne({ email: req.body.doctorEmail }, function (err, user) {
+    if (user) {
+      if (user.role === "patient") {
+        res.send("This is not a doctor!");
+      }
+      // send request to patient
+      const newRequest = new Request({
+        from: req.body.patientName,
+        reason: "i wants to schedule an appointment with you.",
+        comments: req.body.idealTime + " My Email is " + req.body.patientEmail,
+        userId: req.body.id,
+      });
+
+      user.messages.push(newRequest);
+      user.save();
+      res.send("The request has sent to the doctor");
+    } else {
+      res.send("Staff not found.");
+    }
+  });
+});
+
+router.post("/validateAppoint", (req, res) => {
+  User.findOne({ email: req.body.staffEmail }, function (err, user) {
+    // send request to patient
+    const newAppoint = new Appointment({
+      patientEmail: req.body.patientEmail,
+      doctorId: req.body.staffID,
+      patientName: req.body.patientName,
+      doctorName: req.body.staffName,
+      date: req.body.date,
+    });
+
+    user.appointments.push(newAppoint);
+    user.save();
+  });
+
+  User.findOne({ email: req.body.patientEmail }, function (err, user) {
+    if (user) {
+      if (!user.role === "patient") {
+        res.send("Invalid patient email!");
+      }
+      const newAppoint = new Appointment({
+        patientEmail: req.body.patientEmail,
+        doctorId: req.body.staffID,
+        patientName: req.body.patientName,
+        doctorName: req.body.staffName,
+        date: req.body.date,
+      });
+
+      user.appointments.push(newAppoint);
+      user.save();
+      res.send("Successfully scheduled!");
+    } else {
+      res.send("Patient not found.");
+    }
+  });
+});
 module.exports = router;

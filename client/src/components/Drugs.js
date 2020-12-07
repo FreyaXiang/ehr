@@ -39,7 +39,7 @@ const SearchPage = () => {
         <div className="title-container">
           <h4>Find Drugs</h4>
         </div>
-        <div>
+        <div style={{ height: "70vh" }}>
           <DrugSearchForm
             onSubmitHandler={onSubmitHandler}
             onInputChange={onInputChange}

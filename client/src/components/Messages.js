@@ -80,10 +80,15 @@ export default class Messages extends Component {
   render() {
     return (
       <div className="page-container">
+        <div className="title-container">
+          <h4>My Messages</h4>
+        </div>
         {this.state.loading ? (
-          <div>loading...</div>
+          <div style={{ height: "75vh" }}>loading...</div>
         ) : this.state.messages.length === 0 ? (
-          <div>You don't have any messages yet.</div>
+          <div style={{ height: "75vh", marginTop: "35px" }}>
+            You don't have any messages yet.
+          </div>
         ) : (
           this.state.messages.map((item, index) => {
             return (

@@ -1,21 +1,14 @@
 const role_sidebarinfo = {
   patient: [
-    "My Re-medi Health Record",
+    "My Re-medi Health Information",
+    "My Doctors",
     "Appointments",
     "Prescriptions",
     "Medical Records",
-    "My Insurance Plan",
     "Messages",
     "Settings",
   ],
-  staff: [
-    "Dashboard",
-    "Patients",
-    "Appointments",
-    "Messages",
-    "Drugs",
-    "Settings",
-  ],
+  staff: ["Patients", "Appointments", "Messages", "Drugs", "Settings"],
   insurance: ["Clients", "Settings"],
 };
 

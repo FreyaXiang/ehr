@@ -14,7 +14,10 @@ export default function PatientCard(props) {
           <p>Email: {props.info.email}</p>
         </div>
         <div className="card-action">
-          <a className="red-text text-darken-3" href={"/patients/" + props.id}>
+          <a
+            className="red-text text-darken-3"
+            href={"/patients/" + props.info.email}
+          >
             MORE DETAILS
           </a>
         </div>

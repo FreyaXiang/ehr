@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 var d = new Date();
 var weekday = d.getDay();
@@ -35,7 +37,6 @@ class AddAppointmentModal extends Component {
     this.state = {
       name: "",
       email: "",
-      tel: "",
       date: "",
       errors: {},
       isSelected: false,
@@ -48,18 +49,24 @@ class AddAppointmentModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const newUser = {
-      name: this.state.name,
-      email: this.state.email,
-      tel: this.state.tel,
+      patientName: this.state.name,
+      patientEmail: this.state.email,
       date: this.state.date,
+      staffEmail: this.props.staffEmail,
+      staffID: this.props.staffID,
+      staffName: this.props.staffName,
     };
 
-    if (
-      newUser.name === "" ||
-      newUser.email === "" ||
-      newUser.tel === "" ||
-      newUser.date === ""
-    ) {
+    // sent an post request to api to validate
+    axios
+      .post("/api/users/validateAppoint", newUser)
+      .then((res) => {
+        console.log(res.data);
+        alert(res.data);
+      })
+      .catch((err) => alert("Appointment failed"));
+
+    if (newUser.name === "" || newUser.email === "" || newUser.date === "") {
       // M.toast({ ".modal": "I am a toast!" });
     } else {
       this.props.onAdd(newUser);
@@ -128,17 +135,6 @@ class AddAppointmentModal extends Component {
                   type="email"
                 />
                 <label htmlFor="email">Email</label>
-              </div>
-
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.tel}
-                  error={errors.tel}
-                  id="tel"
-                  type="tel"
-                />
-                <label htmlFor="tel">Tel</label>
               </div>
 
               <div className="col s12" style={{ marginTop: "30px" }}>

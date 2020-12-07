@@ -3,8 +3,8 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import "./PageContainer.css";
 import EditRecordsModal from "./EditRecordsModal";
+import AddRecordsModal from "./AddRecordsModal";
 
-const formContent2 = ["Allergy", "Disability"];
 export default class RemediRecord extends Component {
   constructor(props) {
     super(props);
@@ -17,17 +17,6 @@ export default class RemediRecord extends Component {
       disability: null,
       loading: true,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-    console.log("submit");
-  }
-
-  changeInfo(newInfo) {
-    this.setState({
-      height: newInfo,
-    });
   }
 
   async componentDidMount() {
@@ -42,8 +31,8 @@ export default class RemediRecord extends Component {
       gender: data.gender,
       height: data.height,
       weight: data.weight,
-      allergy: data.allergy,
-      disability: data.disability,
+      allergy: data.allergies,
+      disability: data.disabilities,
       loading: false,
     });
     console.log(this.state);
@@ -52,22 +41,29 @@ export default class RemediRecord extends Component {
   render() {
     return (
       <div className="page-container">
-        <div className="title-container">
-          <h4>My Re-medi Health Records</h4>
+        <div className="title-container" style={{ marginBottom: "4%" }}>
+          <h4>My Re-medi Health Information</h4>
         </div>
         {this.state.loading ? (
           <div style={{ height: "75vh" }}>Loading</div>
         ) : (
           <div>
-            <h5 style={{ textAlign: "left", margin: "5% 30px 0" }}>
-              Personal Basics
-            </h5>
-            <a
-              className="btn-floating waves-effect blue darken-3 addIcon modal-trigger"
-              href="#modal3"
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "start",
+              }}
             >
-              <i className="material-icons">edit</i>
-            </a>
+              <h5 style={{ textAlign: "left", margin: "auto 30px 0" }}>
+                Personal Basics
+              </h5>
+              <a
+                className="btn-floating waves-effect red darken-3 addIcon modal-trigger"
+                href="#modal3"
+              >
+                <i className="material-icons">edit</i>
+              </a>
+            </div>
             <form
               onSubmit={this.handleSubmit}
               style={{ textAlign: "left", padding: "5%" }}
@@ -98,15 +94,17 @@ export default class RemediRecord extends Component {
               </div>
             </form>
 
-            <h5 style={{ textAlign: "left", margin: "2% 30px 0" }}>
-              Health Information
-            </h5>
-            <a
-              className="btn-floating waves-effect blue darken-3 addIcon modal-trigger"
-              href="#modal3"
-            >
-              <i className="material-icons">add</i>
-            </a>
+            <div style={{ display: "flex", justifyContent: "start" }}>
+              <h5 style={{ textAlign: "left", margin: "2% 30px 0" }}>
+                Health Information
+              </h5>
+              <a
+                className="btn-floating waves-effect red darken-3 addIcon modal-trigger"
+                href="#modal4"
+              >
+                <i className="material-icons">add</i>
+              </a>
+            </div>
             <form
               onSubmit={this.handleSubmit}
               style={{ textAlign: "left", padding: "5%" }}
@@ -115,18 +113,33 @@ export default class RemediRecord extends Component {
                 <span style={{ marginRight: "18px", fontSize: "18px" }}>
                   Allergy
                 </span>
-                <span tyle={{ fontSize: "15px" }}>{}</span>
+                {this.state.allergy.length === 0 && (
+                  <div>You don't have any allergy records yet.</div>
+                )}
+                {this.state.allergy.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      tyle={{ fontSize: "17px", marginTop: "8px" }}
+                    >
+                      {item}
+                    </div>
+                  );
+                })}
               </div>
               <div style={{ margin: "0 0 25px" }}>
                 <span style={{ marginRight: "18px", fontSize: "18px" }}>
                   Disability
                 </span>
-                <span tyle={{ fontSize: "15px" }}>{}</span>
+                {this.state.disability.length === 0 && (
+                  <div>You don't have any disability records yet.</div>
+                )}
               </div>
             </form>
           </div>
         )}
-        <EditRecordsModal changeInfo={this.changeInfo} />
+        <EditRecordsModal />
+        <AddRecordsModal />
       </div>
     );
   }

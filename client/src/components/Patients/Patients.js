@@ -14,6 +14,7 @@ const patientInfo = [];
 
 export default function Patients(props) {
   const [patients, setPatient] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   function addPatient(newPatient) {
     setPatient((prev) => {
@@ -30,8 +31,8 @@ export default function Patients(props) {
       const url = "/api/users/dashboard/" + decoded.id;
       const res = await axios.get(url);
       const data = await res.data;
-      console.log(data.patients);
       setPatient(data.patients);
+      setLoading(false);
       return data.patients;
     }
     var data = fetchData();
@@ -52,15 +53,20 @@ export default function Patients(props) {
             <i className="material-icons">add</i>
           </a>
         </div>
-
-        <div className="row">
-          {patients.length === 0 && (
-            <h6 style={{ margin: "40px" }}>You don't have any patient yet.</h6>
-          )}
-          {patients.map((item, index) => {
-            return <PatientCard key={index} id={index} info={item} />;
-          })}
-        </div>
+        {loading ? (
+          <div style={{ height: "75vh" }}>loading...</div>
+        ) : (
+          <div className="row" style={{ height: "75vh" }}>
+            {patients.length === 0 && (
+              <h6 style={{ margin: "40px" }}>
+                You don't have any patient yet.
+              </h6>
+            )}
+            {patients.map((item, index) => {
+              return <PatientCard key={index} id={index} info={item} />;
+            })}
+          </div>
+        )}
       </div>
 
       <AddPatientModal onAdd={addPatient} />

@@ -18,7 +18,7 @@ const DrugSearchForm = ({
           style={{ width: "60%", margin: "20px" }}
         />
         <button type="submit" className="btn-floating waves-effect red">
-          <i class="large material-icons">search</i>
+          <i className="large material-icons">search</i>
         </button>
       </label>
       {error && (

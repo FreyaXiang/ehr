@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppointmentCard from "./AppointmentCard";
 import AddAppointmentModal from "./AddAppointmentModal";
+import SendAppointmentModal from "./SendAppointmentModel";
 import "./PageContainer.css";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const availableTime = [
   ["Sunday", []],
@@ -18,7 +21,6 @@ const availableTime = [
     "Tuesday",
     [
       ["14:00 - 14:30", false],
-      ["14:30 - 15:00", false],
       ["16:00 - 16:30", false],
       ["17:00 - 17:30", false],
     ],
@@ -29,7 +31,6 @@ const availableTime = [
       ["14:00 - 14:30", false],
       ["14:30 - 15:00", false],
       ["16:00 - 16:30", false],
-      ["17:00 - 17:30", false],
     ],
   ],
   [
@@ -63,6 +64,28 @@ const availableTime = [
 ];
 
 export default function Appointments(props) {
+  const [userInfo, setUserInfo] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  // fecth data from api
+  useEffect(() => {
+    async function fetchData() {
+      const token = localStorage.jwtToken;
+      // Decode token and get user info and exp
+      const decoded = jwt_decode(token);
+      const url = "/api/users/dashboard/" + decoded.id;
+      const res = await axios.get(url);
+      const data = await res.data;
+      setUserInfo(data);
+      setLoading(false);
+      return data;
+    }
+    var data = fetchData();
+    // setLoading(false);
+  }, []);
+
+  console.log(loading);
+
   const [appointments, setAppointments] = useState([]);
   const [times, setTimes] = useState(availableTime);
 
@@ -87,28 +110,46 @@ export default function Appointments(props) {
           <h4>My Appointments</h4>
           <a
             className="btn-floating waves-effect red darken-3 addIcon modal-trigger"
-            href="#modal2"
+            href={userInfo.role === "staff" ? "#modal2" : "#modal5"}
           >
             <i className="material-icons">add</i>
           </a>
         </div>
-
-        <div className="row">
-          {appointments.length === 0 && (
-            <h6 style={{ margin: "40px" }}>
-              You don't have any appointments yet.
-            </h6>
-          )}
-          {appointments.map((item, index) => {
-            return <AppointmentCard key={index} id={index} info={item} />;
-          })}
-        </div>
+        {loading ? (
+          <div style={{ height: "75vh" }}>loading...</div>
+        ) : (
+          <div className="row" style={{ height: "75vh" }}>
+            {userInfo.appointments.length === 0 && (
+              <h6 style={{ margin: "40px" }}>
+                You don't have any appointments yet.
+              </h6>
+            )}
+            {userInfo.appointments.map((item, index) => {
+              return (
+                <AppointmentCard
+                  key={index}
+                  id={index}
+                  info={item}
+                  role={userInfo.role}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <AddAppointmentModal
         onAdd={addAppointment}
         availableTime={times}
         handleTimes={handleTimes}
+        staffName={userInfo.name}
+        staffEmail={userInfo.email}
+        staffID={userInfo._id}
+      />
+      <SendAppointmentModal
+        patientName={userInfo.name}
+        patientEmail={userInfo.email}
+        patientID={userInfo._id}
       />
     </div>
   );
