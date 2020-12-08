@@ -3,6 +3,7 @@ import PatientCard from "./PatientCard";
 import AddPatientModal from "./AddPatientModal";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Loader from "../Loader";
 
 import "../PageContainer.css";
 
@@ -54,9 +55,11 @@ export default function Patients(props) {
           </a>
         </div>
         {loading ? (
-          <div style={{ height: "75vh" }}>loading...</div>
+          <div>
+            <Loader loading={loading} />
+          </div>
         ) : (
-          <div className="row" style={{ height: "75vh" }}>
+          <div className="row">
             {patients.length === 0 && (
               <h6 style={{ margin: "40px" }}>
                 You don't have any patient yet.

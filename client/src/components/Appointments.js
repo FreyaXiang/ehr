@@ -5,6 +5,7 @@ import SendAppointmentModal from "./SendAppointmentModel";
 import "./PageContainer.css";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Loader from "./Loader";
 
 const availableTime = [
   ["Sunday", []],
@@ -120,9 +121,11 @@ export default function Appointments(props) {
           </a>
         </div>
         {loading ? (
-          <div style={{ height: "75vh" }}>loading...</div>
+          <div>
+            <Loader loading={loading} />
+          </div>
         ) : (
-          <div className="row" style={{ height: "75vh" }}>
+          <div className="row">
             {userInfo.appointments.length === 0 && (
               <h6 style={{ margin: "40px" }}>
                 You don't have any appointments yet.

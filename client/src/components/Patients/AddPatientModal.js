@@ -89,6 +89,7 @@ class AddPatientModal extends Component {
           }}
           id="modal1"
           className="modal"
+          style={{ height: "48%" }}
         >
           <div className="modal-content">
             <h4>Add New Patient</h4>

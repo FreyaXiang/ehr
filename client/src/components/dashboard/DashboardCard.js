@@ -22,15 +22,19 @@ export default function DashboardCard(props) {
       >
         <div
           style={{
-            color: "#BA001F",
+            color: props.role === "staff" ? "#BA001F" : "#094FAD",
             width: "40%",
           }}
         >
           <i className="small material-icons">{props.img}</i>
         </div>
         <div
-          className="red white-text darken-4"
-          style={{ padding: "5px", width: "60%" }}
+          className="white-text"
+          style={{
+            padding: "5px",
+            width: "60%",
+            backgroundColor: props.role === "staff" ? "#BA001F" : "#094FAD",
+          }}
         >
           <h5>{props.number}</h5>
           <p>{props.title}</p>

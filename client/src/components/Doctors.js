@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Loader from "./Loader";
 
 import "./PageContainer.css";
 
@@ -33,12 +34,14 @@ export default function Doctors(props) {
 
   return (
     <div>
-      <div className="page-container" style={{ height: "75vh" }}>
+      <div className="page-container">
         <div className="title-container">
           <h4>My Doctors</h4>
         </div>
         {loading ? (
-          <div style={{ height: "75vh" }}>loading...</div>
+          <div>
+            <Loader loading={loading} />
+          </div>
         ) : (
           <div className="row" style={{ height: "75vh" }}>
             {doctors.length === 0 && (
@@ -59,7 +62,7 @@ export default function Doctors(props) {
                         className="red-text text-darken-3"
                         href={"/appointments/" + props.id}
                       >
-                        Cancel
+                        Delete
                       </a>
                     </div>
                   </div>

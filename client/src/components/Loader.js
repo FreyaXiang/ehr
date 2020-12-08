@@ -4,7 +4,7 @@ const Loader = ({ loading, searchTerm }) => {
   return (
     <>
       {loading && (
-        <div className="preloader-wrapper active">
+        <div className="preloader-wrapper active" style={{ marginTop: "20%" }}>
           <div className="spinner-layer spinner-red-only">
             <div className="circle-clipper left">
               <div className="circle"></div>

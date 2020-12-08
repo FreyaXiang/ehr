@@ -3,6 +3,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 import MessageCard from "./MessageCard";
+import Loader from "./Loader";
 
 export default class Messages extends Component {
   constructor(props) {
@@ -93,9 +94,11 @@ export default class Messages extends Component {
           <h4>My Messages</h4>
         </div>
         {this.state.loading ? (
-          <div style={{ height: "75vh" }}>loading...</div>
+          <div>
+            <Loader loading={this.state.loading} />
+          </div>
         ) : this.state.messages.length === 0 ? (
-          <div style={{ height: "75vh", marginTop: "35px" }}>
+          <div style={{ marginTop: "35px" }}>
             You don't have any messages yet.
           </div>
         ) : (

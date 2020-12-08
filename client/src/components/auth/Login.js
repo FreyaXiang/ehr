@@ -53,7 +53,7 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="container">
+      <div className="container" style={{ textAlign: "left", marginTop: "5%" }}>
         <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
@@ -65,7 +65,10 @@ class Login extends Component {
                 <b>Login</b> below
               </h4>
               <p className="grey-text text-darken-1">
-                Don't have an account? <Link to="/register">Register</Link>
+                Don't have an account?{" "}
+                <Link to="/register" style={{ color: "#BA001F" }}>
+                  Register
+                </Link>
               </p>
             </div>
             <form noValidate onSubmit={this.onSubmit}>
@@ -110,9 +113,11 @@ class Login extends Component {
                     borderRadius: "3px",
                     letterSpacing: "1.5px",
                     marginTop: "1rem",
+                    backgroundColor: "#BA001F",
+                    color: "white",
                   }}
                   type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn btn-large waves-effect waves-light hoverable accent-3"
                 >
                   Login
                 </button>

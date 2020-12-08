@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import "./PageContainer.css";
 import EditRecordsModal from "./EditRecordsModal";
 import AddRecordsModal from "./AddRecordsModal";
+import Loader from "./Loader";
 
 const patientCard = {
   textAlign: "left",
@@ -43,12 +44,13 @@ export default class Records extends Component {
   render() {
     return (
       <div className="page-container">
-        <div className="title-container" style={{ marginBottom: "4%" }}>
+        <div className="title-container">
           <h4>My Medical Records</h4>
           <div>
             <a
               className="btn-floating waves-effect red darken-3 addIcon modal-trigger"
               href="#modal4"
+              style={{ marginRight: "20px" }}
             >
               <i className="material-icons">add</i>
             </a>
@@ -61,15 +63,17 @@ export default class Records extends Component {
           </div>
         </div>
         {this.state.loading ? (
-          <div style={{ height: "75vh" }}>Loading</div>
+          <div>
+            <Loader loading={this.state.loading} />
+          </div>
         ) : (
           <div>
             {this.state.healthRecords.length === 0 ? (
-              <div style={{ height: "75vh" }}>
+              <div style={{ marginTop: "40px" }}>
                 You don't have any health records yet.
               </div>
             ) : (
-              <div style={{ height: "75vh" }}>
+              <div>
                 {this.state.healthRecords.map((item, index) => {
                   return (
                     <div className="col s6 m6">

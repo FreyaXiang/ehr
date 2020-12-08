@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Loader from "./Loader";
 export default class Prescriptions extends Component {
   constructor(props) {
     super(props);
@@ -26,12 +27,14 @@ export default class Prescriptions extends Component {
 
   render() {
     return (
-      <div className="page-container" style={{ height: "75vh" }}>
+      <div className="page-container">
         <div className="title-container" style={{ marginBottom: "2%" }}>
           <h4>My Prescriptions</h4>
         </div>
         {this.state.loading ? (
-          <div>Loading...</div>
+          <div>
+            <Loader loading={this.state.loading} />
+          </div>
         ) : this.state.prescriptions.length === 0 ? (
           <div>You don't have any prescription yet.</div>
         ) : (

@@ -88,7 +88,7 @@ class Register extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="container">
+      <div className="container" style={{ textAlign: "left" }}>
         <div className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
@@ -100,7 +100,10 @@ class Register extends Component {
                 <b>Register</b> below
               </h4>
               <p className="grey-text text-darken-1">
-                Already have an account? <Link to="/login">Log in</Link>
+                Already have an account?{" "}
+                <Link to="/login" style={{ color: "#BA001F" }}>
+                  Log in
+                </Link>
               </p>
             </div>
             <form noValidate onSubmit={this.onSubmit}>
@@ -329,9 +332,11 @@ class Register extends Component {
                     borderRadius: "3px",
                     letterSpacing: "1.5px",
                     marginTop: "1rem",
+                    backgroundColor: "#BA001F",
+                    color: "white",
                   }}
                   type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn btn-large waves-effect waves-light hoverable accent-3"
                 >
                   Sign up
                 </button>
