@@ -35,7 +35,8 @@ export default function MessageCard(props) {
                     props.doctorId,
                     props.patientName,
                     props.name,
-                    props.patientEmail
+                    props.patientEmail,
+                    props.staffEmail
                   );
                   props.removeCard(props.index);
                 }}

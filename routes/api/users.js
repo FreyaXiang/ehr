@@ -171,6 +171,7 @@ router.post("/patient", (req, res) => {
       reason: "wants to add you as patient",
       comments: req.body.comments,
       userId: req.body.id,
+      userEmail: req.body.doctorEmail,
     });
 
     user.messages.push(newRequest);
@@ -197,7 +198,6 @@ router.delete("/messages/:userAndIndex", (req, res) => {
     if (foundUser) {
       foundUser.messages.splice(index, 1);
       foundUser.save();
-      res.send("Success!");
     } else {
       res.send("No User was found.");
     }
@@ -212,9 +212,10 @@ router.put("/messages/:patientStaffIndex", (req, res) => {
   var staffName = req.params.patientStaffIndex.split("*")[4];
   var patientName = req.params.patientStaffIndex.split("*")[3];
   var patientEmail = req.params.patientStaffIndex.split("*")[5];
+  var staffEmail = req.params.patientStaffIndex.split("*")[6];
   User.findOne({ _id: patientId }, function (err, foundUser) {
     foundUser.messages.splice(index, 1);
-    foundUser.staff.push({ name: staffName, id: staffId });
+    foundUser.staff.push({ name: staffName, email: staffEmail });
     foundUser.save();
   });
   User.findOne({ _id: staffId }, function (err, foundUser) {
@@ -226,9 +227,11 @@ router.put("/messages/:patientStaffIndex", (req, res) => {
         userId: patientId,
       });
       foundUser.messages.push(newRequest);
-      foundUser.patients.push({ name: patientName, email: patientEmail });
+      foundUser.patients.push({
+        name: patientName,
+        email: patientEmail,
+      });
       foundUser.save();
-      res.send("" + foundUser.patients);
     }
   });
 });

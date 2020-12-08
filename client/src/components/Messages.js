@@ -50,7 +50,14 @@ export default class Messages extends Component {
     alert(res.data);
   }
 
-  async agree(index, doctorId, patientName, doctorName, patientEmail) {
+  async agree(
+    index,
+    doctorId,
+    patientName,
+    doctorName,
+    patientEmail,
+    staffEmail
+  ) {
     const token = localStorage.jwtToken;
     const decoded = jwt_decode(token);
     const url =
@@ -65,7 +72,9 @@ export default class Messages extends Component {
       "*" +
       doctorName +
       "*" +
-      patientEmail;
+      patientEmail +
+      "*" +
+      staffEmail;
     const res = await axios.put(url);
     alert(res.data);
   }
@@ -106,6 +115,7 @@ export default class Messages extends Component {
                 role={this.state.role}
                 clickConfirm={this.confirm}
                 patientEmail={this.state.email}
+                staffEmail={item.userEmail}
               />
             );
           })

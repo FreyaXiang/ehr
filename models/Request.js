@@ -15,6 +15,9 @@ const requestSchema = new Schema({
     type: mongoose.Types.ObjectId,
     required: true,
   },
+  userEmail: {
+    type: String,
+  },
   comments: {
     type: String,
   },
