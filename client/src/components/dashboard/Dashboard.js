@@ -176,7 +176,7 @@ class Dashboard extends Component {
                 </div>
               </div>
             </div>
-            <Footer role={this.state.role} />
+            {/* <Footer role={this.state.role} /> */}
           </div>
         )}
       </div>

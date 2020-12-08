@@ -13,8 +13,9 @@ const validateAddPatientInput = require("../../validation/addPatient");
 // Load User model
 const User = require("../../models/User");
 const Request = require("../../models/Request");
-const Appointment = require("../../models/record");
-const HealthRecord = require("../../models/record");
+const Appointment = require("../../models/Appointment");
+const HealthRecord = require("../../models/HealthRecord");
+const Prescription = require("../../models/Prescription");
 
 // @route POST api/users/register
 // @desc Register user
@@ -338,6 +339,7 @@ router.post("/sendAppointRequest", (req, res) => {
   });
 });
 
+// doctor validate the appointment
 router.post("/validateAppoint", (req, res) => {
   User.findOne({ email: req.body.staffEmail }, function (err, user) {
     // send request to patient
@@ -368,10 +370,59 @@ router.post("/validateAppoint", (req, res) => {
 
       user.appointments.push(newAppoint);
       user.save();
-      res.send("Successfully scheduled!");
+      // res.send("Successfully scheduled!");
+      res.send("" + newAppoint);
     } else {
       res.send("Patient not found.");
     }
   });
 });
+
+// create prescription by doctor
+router.post("/prescription", (req, res) => {
+  User.findOne({ email: req.body.patientEmail }, function (err, user) {
+    // send request to patient
+    const newPrescription = new Prescription({
+      patientEmail: req.body.patientEmail,
+      doctorEmail: req.body.doctorEmail,
+      doctorName: req.body.doctorName,
+      drugs: req.body.drugs,
+      description: req.body.descriptions,
+    });
+
+    user.prescriptions.push(newPrescription);
+    user.save();
+    res.send("The prescription has been sent to the patient");
+    // res.send("" + req.body.patientEmail);
+  });
+});
+
+// end appointment by doctor
+router.post("/endAppointment", (req, res) => {
+  User.findOne({ email: req.body.doctorEmail }, function (err, user) {
+    var itemToPop;
+    user.appointments.forEach((item) => {
+      if (item.patientEmail === req.body.patientEmail) {
+        itemToPop = item;
+      }
+    });
+    user.appointments.pop(itemToPop);
+    user.save();
+    // res.send("The prescription has been sent to the patient");
+    // res.send("" + user.appointments);
+  });
+  User.findOne({ email: req.body.patientEmail }, function (err, user) {
+    var itemToPop;
+    user.appointments.forEach((item) => {
+      if (item.doctorEmail === req.body.doctorEmail) {
+        itemToPop = item;
+      }
+    });
+    user.appointments.pop(itemToPop);
+    user.save();
+    // res.send("The prescription has been sent to the patient");
+    res.send("" + user.appointments);
+  });
+});
+
 module.exports = router;

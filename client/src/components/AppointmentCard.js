@@ -15,12 +15,30 @@ export default function AppointmentCard(props) {
           <p>Date: {props.info.date}</p>
         </div>
         <div className="card-action">
-          <a
-            className="red-text text-darken-3"
-            href={"/appointments/" + props.id}
-          >
-            {props.role === "staff" ? "Start" : "Cancel"}
-          </a>
+          {props.role === "staff" && (
+            <a
+              className="red-text text-darken-3"
+              href={"/appointments/doctors/" + props.info.patientEmail}
+            >
+              Start
+            </a>
+          )}
+          {props.role === "patient" && (
+            <a
+              className="red-text text-darken-3"
+              href={"/appointments/" + props.id}
+            >
+              Cancel
+            </a>
+          )}
+          {props.role === "staff_low" && (
+            <a
+              className="red-text text-darken-3"
+              href={"/appointments/staff_low/" + props.id}
+            >
+              Start
+            </a>
+          )}
         </div>
       </div>
     </div>

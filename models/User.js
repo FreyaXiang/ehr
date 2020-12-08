@@ -78,6 +78,10 @@ const UserSchema = new Schema({
     type: Array,
     default: [],
   },
+  prescriptions: {
+    type: Array,
+    default: [],
+  },
   org: {
     type: String,
   },

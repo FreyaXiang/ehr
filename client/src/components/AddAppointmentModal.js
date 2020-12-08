@@ -240,7 +240,6 @@ class AddAppointmentModal extends Component {
                   className={
                     this.state.name === "" ||
                     this.state.email === "" ||
-                    this.state.tel === "" ||
                     this.state.date === ""
                       ? "waves-effect btn btn-large hoverable red darken-3"
                       : "modal-close btn btn-large waves-effect hoverable red darken-3"

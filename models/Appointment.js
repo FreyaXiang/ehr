@@ -24,27 +24,7 @@ const schema_appointment = new Schema({
   },
 });
 
-const schema_health_record = new mongoose.Schema({
-  patientID: {
-    type: String,
-    default: [],
-  },
-  description: {
-    type: String,
-    default: "",
-  },
-  date: {
-    type: String,
-    default: Date.now,
-  },
-});
-
 module.exports = Appointment = mongoose.model(
   "appointments",
   schema_appointment
-);
-
-module.exports = HealthRecord = mongoose.model(
-  "healthRecords",
-  schema_health_record
 );
