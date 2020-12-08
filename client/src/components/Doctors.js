@@ -54,6 +54,14 @@ export default function Doctors(props) {
                       <span className="card-title">{item.name}</span>
                       <p>Email: {item.email}</p>
                     </div>
+                    <div className="card-action">
+                      <a
+                        className="red-text text-darken-3"
+                        href={"/appointments/" + props.id}
+                      >
+                        Cancel
+                      </a>
+                    </div>
                   </div>
                 </div>
               );

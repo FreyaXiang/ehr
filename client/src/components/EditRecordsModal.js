@@ -34,6 +34,7 @@ class EditRecordsModal extends Component {
     this.state = {
       item: "",
       changes: "",
+      recordNumber: "",
       errors: {},
     };
   }
@@ -49,18 +50,31 @@ class EditRecordsModal extends Component {
       id: decoded.id,
       item: this.state.item,
       changes: this.state.changes,
+      recordNumber: this.state.recordNumber,
     };
 
     console.log(newInfo);
 
     // sent an post request to api to update information
-    axios
-      .post("/api/users/updateBasics", newInfo)
-      .then((res) => {
-        console.log(res.data);
-        alert(res.data);
-      })
-      .catch((err) => alert("Edit Information failed"));
+    if (this.props.page === "remedi") {
+      axios
+        .post("/api/users/updateBasics", newInfo)
+        .then((res) => {
+          console.log(res.data);
+          alert(res.data);
+        })
+        .catch((err) => alert("Edit Information failed"));
+    }
+
+    if (this.props.page === "healthRecords") {
+      axios
+        .post("/api/users/updateHealthRecords", newInfo)
+        .then((res) => {
+          console.log(res.data);
+          alert(res.data);
+        })
+        .catch((err) => alert("Edit Health Records failed"));
+    }
     // this.props.onAdd(newPatient);
     this.setState({
       item: "",
@@ -81,8 +95,24 @@ class EditRecordsModal extends Component {
           className="modal"
         >
           <div className="modal-content">
-            <h4>Edit Your Health Information</h4>
+            <h4>
+              {this.props.page === "remedi"
+                ? "Edit Your Health Information"
+                : "Edit Your Health Records"}
+            </h4>
             <form noValidate onSubmit={this.onSubmit}>
+              {!(this.props.page === "remedi") && (
+                <div className="input-field col s12">
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.recordNumber}
+                    error={errors.recordNumber}
+                    id="recordNumber"
+                    type="text"
+                  />
+                  <label htmlFor="item">Record number</label>
+                </div>
+              )}
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}

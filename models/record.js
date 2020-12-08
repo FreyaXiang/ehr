@@ -29,9 +29,13 @@ const schema_health_record = new mongoose.Schema({
     type: String,
     default: [],
   },
-  data: {
-    type: Array,
-    default: [],
+  description: {
+    type: String,
+    default: "",
+  },
+  date: {
+    type: String,
+    default: Date.now,
   },
 });
 

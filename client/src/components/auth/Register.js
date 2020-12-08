@@ -196,6 +196,23 @@ class Register extends Component {
                       })}
                       onClick={this.displayStaff}
                     />
+                    <span>Doctor</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input
+                      name="group1"
+                      type="radio"
+                      onChange={this.onChange}
+                      value="staff_low"
+                      error={errors.role}
+                      id="role"
+                      className={classnames("", {
+                        invalid: errors.role,
+                      })}
+                      onClick={this.displayStaff}
+                    />
                     <span>Staff</span>
                   </label>
                 </p>

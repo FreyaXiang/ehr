@@ -9,7 +9,7 @@ const role_sidebarinfo = {
     "Settings",
   ],
   staff: ["Patients", "Appointments", "Messages", "Drugs", "Settings"],
-  insurance: ["Clients", "Settings"],
+  staff_low: ["Patients", "Appointments", "Messages", "Settings"],
 };
 
 module.exports = {

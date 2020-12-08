@@ -5,6 +5,11 @@ import "./PageContainer.css";
 import EditRecordsModal from "./EditRecordsModal";
 import AddRecordsModal from "./AddRecordsModal";
 
+const patientCard = {
+  textAlign: "left",
+  margin: "30px 10px",
+};
+
 export default class Records extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +17,7 @@ export default class Records extends Component {
       healthRecords: null,
       loading: true,
     };
+    this.onAdd = this.onAdd.bind(this);
   }
 
   async componentDidMount() {
@@ -28,11 +34,31 @@ export default class Records extends Component {
     console.log(this.state);
   }
 
+  onAdd(newRecords) {
+    this.setState((prevState) => ({
+      healthRecords: [...prevState.healthRecords, newRecords],
+    }));
+  }
+
   render() {
     return (
       <div className="page-container">
         <div className="title-container" style={{ marginBottom: "4%" }}>
           <h4>My Medical Records</h4>
+          <div>
+            <a
+              className="btn-floating waves-effect red darken-3 addIcon modal-trigger"
+              href="#modal4"
+            >
+              <i className="material-icons">add</i>
+            </a>
+            <a
+              className="btn-floating waves-effect red darken-3 addIcon modal-trigger"
+              href="#modal3"
+            >
+              <i className="material-icons">edit</i>
+            </a>
+          </div>
         </div>
         {this.state.loading ? (
           <div style={{ height: "75vh" }}>Loading</div>
@@ -43,16 +69,26 @@ export default class Records extends Component {
                 You don't have any health records yet.
               </div>
             ) : (
-              <div>
+              <div style={{ height: "75vh" }}>
                 {this.state.healthRecords.map((item, index) => {
-                  return <div>{item.description}</div>;
+                  return (
+                    <div className="col s6 m6">
+                      <div className="card" style={patientCard}>
+                        <div className="card-content">
+                          <span className="card-title">{index + 1 + "."}</span>
+                          <p>{item.date}</p>
+                          <p>{item.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
                 })}
               </div>
             )}
           </div>
         )}
-        <EditRecordsModal />
-        <AddRecordsModal />
+        <EditRecordsModal page="healthRecords" />
+        <AddRecordsModal page="healthRecords" onAdd={this.onAdd} />
       </div>
     );
   }

@@ -53,15 +53,30 @@ class AddRecordsModal extends Component {
 
     console.log(newInfo);
 
-    // sent an post request to api to update information
-    axios
-      .post("/api/users/addHealthInfo", newInfo)
-      .then((res) => {
-        console.log(res.data);
-        alert(res.data);
-      })
-      .catch((err) => alert("Add Information failed"));
-    // this.props.onAdd(newPatient);
+    // sent an post request to api to add information
+    if (this.props.page === "remedi") {
+      axios
+        .post("/api/users/addHealthInfo", newInfo)
+        .then((res) => {
+          console.log(res.data);
+          alert(res.data);
+        })
+        .catch((err) => alert("Add Information failed"));
+    }
+    if (this.props.page === "healthRecords") {
+      console.log("hey");
+      axios
+        .post("/api/users/addHealthRecords", newInfo)
+        .then((res) => {
+          console.log(res.data);
+          alert(res.data);
+        })
+        .catch((err) => alert("Add Records failed"));
+      this.props.onAdd({
+        date: this.state.item,
+        description: this.state.changes,
+      });
+    }
     this.setState({
       item: "",
       changes: "",
@@ -81,7 +96,11 @@ class AddRecordsModal extends Component {
           className="modal"
         >
           <div className="modal-content">
-            <h4>Add Health Information</h4>
+            <h4>
+              {this.props.page === "remedi"
+                ? "Add Health Information"
+                : "Add Health Records"}
+            </h4>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
                 <input
@@ -91,7 +110,9 @@ class AddRecordsModal extends Component {
                   type="text"
                 />
                 <label htmlFor="changes">
-                  Which information you want to add(allergy or disability)
+                  {this.props.page === "remedi"
+                    ? "Which information you want to add(allergy or disability)"
+                    : "Date"}
                 </label>
               </div>
               <div className="input-field col s12">
@@ -101,7 +122,11 @@ class AddRecordsModal extends Component {
                   id="changes"
                   type="text"
                 />
-                <label htmlFor="changes">Your details here</label>
+                <label htmlFor="changes">
+                  {this.props.page === "remedi"
+                    ? "Your details here"
+                    : "Description"}
+                </label>
               </div>
 
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>

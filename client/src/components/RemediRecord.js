@@ -138,8 +138,8 @@ export default class RemediRecord extends Component {
             </form>
           </div>
         )}
-        <EditRecordsModal />
-        <AddRecordsModal />
+        <EditRecordsModal page="remedi" />
+        <AddRecordsModal page="remedi" />
       </div>
     );
   }

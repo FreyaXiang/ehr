@@ -243,7 +243,7 @@ router.post("/updateBasics", (req, res) => {
       foundUser.gender = req.body.changes;
     }
     foundUser.save();
-    res.send("" + foundUser.height);
+    res.send("Success!");
   });
 });
 
@@ -263,6 +263,40 @@ router.post("/addHealthInfo", (req, res) => {
     }
     foundUser.save();
     res.send("" + foundUser.allergies);
+  });
+});
+
+// add patient health records
+router.post("/addHealthRecords", (req, res) => {
+  // should validate user input...
+
+  User.findOne({ _id: req.body.id }, function (err, foundUser) {
+    const newRecords = new HealthRecord({
+      patientID: req.body.id,
+      date: req.body.item,
+      description: req.body.changes,
+    });
+    foundUser.health_records.push(newRecords);
+    foundUser.save();
+    res.send("Success!");
+  });
+});
+
+// update patient health records
+router.post("/updateHealthRecords", (req, res) => {
+  // validate input
+  User.findOne({ _id: req.body.id }, function (err, foundUser) {
+    var index = req.body.recordNumber - 1;
+    if (req.body.item === "date") {
+      foundUser.health_records[index].date = req.body.changes;
+    } else if (req.body.item === "description") {
+      foundUser.health_records[index].description = req.body.changes;
+    }
+
+    foundUser.save();
+    res.send(
+      "" + foundUser.health_records[req.body.recordNumber - 1].description
+    );
   });
 });
 
