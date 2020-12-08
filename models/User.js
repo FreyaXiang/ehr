@@ -29,23 +29,11 @@ const UserSchema = new Schema({
   },
   patients: {
     type: Array,
-    default: function () {
-      if (this.role === "staff") {
-        return [];
-      } else if (this.role === "patient") {
-        return null;
-      }
-    },
+    default: [],
   },
   staff: {
     type: Array,
-    default: function () {
-      if (this.role === "staff") {
-        return null;
-      } else if (this.role === "patient") {
-        return [];
-      }
-    },
+    default: [],
   },
   messages: {
     type: Array,

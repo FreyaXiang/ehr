@@ -134,6 +134,16 @@ export default class RemediRecord extends Component {
                 {this.state.disability.length === 0 && (
                   <div>You don't have any disability records yet.</div>
                 )}
+                {this.state.disability.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      tyle={{ fontSize: "17px", marginTop: "8px" }}
+                    >
+                      {item}
+                    </div>
+                  );
+                })}
               </div>
             </form>
           </div>

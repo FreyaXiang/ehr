@@ -15,7 +15,7 @@ export default function MessageCard(props) {
           <p>{props.comment}</p>
         </div>
         <div className="card-action">
-          {props.role === "staff" ? (
+          {props.role === "staff" || props.role === "staff_low" ? (
             <div
               className="btn white red-text text-darken-3"
               onClick={() => {
@@ -23,7 +23,7 @@ export default function MessageCard(props) {
                 props.removeCard(props.index);
               }}
             >
-              Confirm
+              Known
             </div>
           ) : (
             <div>

@@ -32,7 +32,7 @@ export default function DashboardCard(props) {
           className="red white-text darken-4"
           style={{ padding: "5px", width: "60%" }}
         >
-          <h5>7</h5>
+          <h5>{props.number}</h5>
           <p>{props.title}</p>
         </div>
       </div>

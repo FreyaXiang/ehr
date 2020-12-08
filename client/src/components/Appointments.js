@@ -110,7 +110,11 @@ export default function Appointments(props) {
           <h4>My Appointments</h4>
           <a
             className="btn-floating waves-effect red darken-3 addIcon modal-trigger"
-            href={userInfo.role === "staff" ? "#modal2" : "#modal5"}
+            href={
+              userInfo.role === "staff" || userInfo.role === "staff_low"
+                ? "#modal2"
+                : "#modal5"
+            }
           >
             <i className="material-icons">add</i>
           </a>

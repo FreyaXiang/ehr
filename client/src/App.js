@@ -48,7 +48,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute
-                path="/patients/:patientid"
+                path="/patients/:patientEmail"
                 component={PatientDetail}
               />
             </Switch>

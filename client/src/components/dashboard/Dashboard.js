@@ -47,6 +47,9 @@ class Dashboard extends Component {
     this.state = {
       role: null,
       name: null,
+      staff: null,
+      messages: null,
+      appointments: null,
       patients: null,
       loading: true,
       dashpagename: null,
@@ -69,6 +72,9 @@ class Dashboard extends Component {
     this.setState({
       role: data.role,
       name: data.name,
+      staff: data.staff,
+      appointments: data.appointments,
+      messages: data.messages,
       patients: data.patients,
       loading: false,
     });
@@ -115,7 +121,7 @@ class Dashboard extends Component {
               selected={this.state.dashpagename}
             />
 
-            <div className="">
+            <div style={{ height: "75vh" }}>
               <div className="row">
                 <div className="dash-page">
                   {this.state.dashpage === null ? (
@@ -138,55 +144,29 @@ class Dashboard extends Component {
                             marginTop: "80px",
                           }}
                         >
-                          <DashboardCard title="PATIENTS" img="accessible" />
+                          <DashboardCard
+                            title={
+                              this.state.role === "patient"
+                                ? "DOCTOR"
+                                : "PATIENTS"
+                            }
+                            img="accessible"
+                            number={
+                              this.state.role === "patient"
+                                ? this.state.staff.length
+                                : this.state.patients.length
+                            }
+                          />
                           <DashboardCard
                             title="APPOINTMENTS"
                             img="book_online"
+                            number={this.state.appointments.length}
                           />
-                          <DashboardCard title="MESSAGES" img="chat" />
-                        </div>
-
-                        <div style={{ display: "flex", marginTop: "50px" }}>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              marginRight: "30px",
-                            }}
-                          >
-                            <a
-                              class="waves-effect waves-light btn-large red darken-4"
-                              style={buttonstyle}
-                              href="/patients"
-                            >
-                              Add Patient
-                            </a>
-                            <a
-                              class="waves-effect waves-light btn-large red darken-4"
-                              style={buttonstyle}
-                              href="/appointments"
-                            >
-                              Add Appointment
-                            </a>
-                            <a
-                              class="waves-effect waves-light btn-large red darken-4"
-                              style={buttonstyle}
-                              href="/drugs"
-                            >
-                              Find Drug
-                            </a>
-                            <a
-                              class="waves-effect waves-light btn-large red darken-4"
-                              style={buttonstyle}
-                              href="/settings"
-                            >
-                              View Profile
-                            </a>
-                          </div>
-                          <div style={{ backgroundColor: "yellow" }}>
-                            here supposed to be a line chart for visit
-                            records.......
-                          </div>
+                          <DashboardCard
+                            title="MESSAGES"
+                            img="chat"
+                            number={this.state.messages.length}
+                          />
                         </div>
                       </div>
                     </div>

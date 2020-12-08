@@ -130,6 +130,17 @@ router.get("/dashboard/:userId", (req, res) => {
   });
 });
 
+// get user info by email
+router.get("/dashboard/findPatientEmail/:email", (req, res) => {
+  User.findOne({ email: req.params.email }, function (err, foundUser) {
+    if (foundUser) {
+      res.send(foundUser);
+    } else {
+      res.send("" + req.params.email);
+    }
+  });
+});
+
 // add patient
 router.post("/patient", (req, res) => {
   // Form validation
@@ -150,7 +161,7 @@ router.post("/patient", (req, res) => {
     }
 
     // Check if user is a patient
-    if (user.role == "staff") {
+    if (user.role === "staff" || user.role === "staff_low") {
       res.send("The user is not a patient");
     }
 
@@ -305,13 +316,13 @@ router.post("/sendAppointRequest", (req, res) => {
   User.findOne({ email: req.body.doctorEmail }, function (err, user) {
     if (user) {
       if (user.role === "patient") {
-        res.send("This is not a doctor!");
+        res.send("This is not a staff!");
       }
       // send request to patient
       const newRequest = new Request({
         from: req.body.patientName,
-        reason: "i wants to schedule an appointment with you.",
-        comments: req.body.idealTime + " My Email is " + req.body.patientEmail,
+        reason: "wants to schedule an appointment with you.",
+        comments: req.body.idealTime + "\nMy Email is " + req.body.patientEmail,
         userId: req.body.id,
       });
 
