@@ -10,20 +10,29 @@ export default function MessageCard(props) {
     <div className="col s10">
       <div className="card" style={msgCard}>
         <div className="card-content">
-          <span className="card-title">{props.name}</span>
-          <p>{props.name + " " + props.reason}</p>
-          <p>{props.comment}</p>
+          <span className="card-title">
+            <b>{props.name}</b>
+          </span>
+          <p>
+            <b>{props.name + " " + props.reason}</b>
+          </p>
+          <p>
+            <b>Messages:</b> {props.comment}
+          </p>
         </div>
         <div className="card-action">
           {props.role === "staff" || props.role === "staff_low" ? (
-            <div
-              className="btn white red-text text-darken-3"
-              onClick={() => {
-                props.clickConfirm(props.index);
-                props.removeCard(props.index);
-              }}
-            >
-              Known
+            <div>
+              <div
+                className="btn white red-text text-darken-3"
+                onClick={() => {
+                  props.clickConfirm(props.index);
+                  props.removeCard(props.index);
+                }}
+              >
+                Known
+              </div>
+              <div className="btn white red-text text-darken-3">Reply</div>
             </div>
           ) : (
             <div>

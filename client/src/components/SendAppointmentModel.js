@@ -62,9 +62,10 @@ class SendAppointmentModal extends Component {
       .post("/api/users/sendAppointRequest", newInfo)
       .then((res) => {
         console.log(res.data);
-        alert(res.data);
+        // alert(res.data);
       })
       .catch((err) => alert("Request failed"));
+    M.toast({ html: "The request has been sent to the doctor." });
     // this.props.onAdd(newPatient);
     this.setState({
       doctor: "",
@@ -119,8 +120,9 @@ class SendAppointmentModal extends Component {
               </div>
               <p>
                 Note: You are only allowed to request an appointment in three
-                days. Otherwise the doctor will ignore your request.
+                days.
               </p>
+              <p>Otherwise the doctor will ignore your request.</p>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button
                   style={{

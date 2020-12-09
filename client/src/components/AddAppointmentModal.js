@@ -62,7 +62,8 @@ class AddAppointmentModal extends Component {
       .post("/api/users/validateAppoint", newUser)
       .then((res) => {
         console.log(res.data);
-        alert(res.data);
+        // alert(res.data);
+        M.toast({ html: "Successfully scheduled!" });
       })
       .catch((err) => alert("Appointment failed"));
 
@@ -124,7 +125,7 @@ class AddAppointmentModal extends Component {
                   id="name"
                   type="text"
                 />
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Patient Name</label>
               </div>
               <div className="input-field col s12">
                 <input
@@ -134,7 +135,7 @@ class AddAppointmentModal extends Component {
                   id="email"
                   type="email"
                 />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Patient Email</label>
               </div>
 
               <div className="col s12" style={{ marginTop: "30px" }}>

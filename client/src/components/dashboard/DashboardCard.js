@@ -10,6 +10,14 @@ const appointmentCard = {
 };
 
 export default function DashboardCard(props) {
+  var userRole;
+  if (props.role === "staff") {
+    userRole = "#BA001F";
+  } else if (props.role === "patient") {
+    userRole = "#094FAD";
+  } else {
+    userRole = "#BAB100";
+  }
   return (
     <a style={appointmentCard} href={"/" + props.title.toLowerCase()}>
       <div
@@ -22,7 +30,7 @@ export default function DashboardCard(props) {
       >
         <div
           style={{
-            color: props.role === "staff" ? "#BA001F" : "#094FAD",
+            color: userRole,
             width: "40%",
           }}
         >
@@ -33,7 +41,7 @@ export default function DashboardCard(props) {
           style={{
             padding: "5px",
             width: "60%",
-            backgroundColor: props.role === "staff" ? "#BA001F" : "#094FAD",
+            backgroundColor: userRole,
           }}
         >
           <h5>{props.number}</h5>

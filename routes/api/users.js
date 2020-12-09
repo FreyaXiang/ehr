@@ -16,6 +16,7 @@ const Request = require("../../models/Request");
 const Appointment = require("../../models/Appointment");
 const HealthRecord = require("../../models/HealthRecord");
 const Prescription = require("../../models/Prescription");
+const Drug = require("../../models/Drug");
 
 // @route POST api/users/register
 // @desc Register user
@@ -370,8 +371,7 @@ router.post("/validateAppoint", (req, res) => {
 
       user.appointments.push(newAppoint);
       user.save();
-      // res.send("Successfully scheduled!");
-      res.send("" + newAppoint);
+      res.send("Successfully scheduled!");
     } else {
       res.send("Patient not found.");
     }
@@ -423,6 +423,31 @@ router.post("/endAppointment", (req, res) => {
     // res.send("The prescription has been sent to the patient");
     res.send("" + user.appointments);
   });
+});
+
+// find drugs
+router.get("/findDrugs/:drugName", (req, res) => {
+  Drug.find({ name: req.params.drugName }, function (err, drugs) {
+    if (drugs) {
+      res.send(drugs);
+    } else {
+      res.send("No drugs are found");
+    }
+  });
+});
+
+// add drugs
+router.post("/addDrugs", (req, res) => {
+  const newDrug = new Drug({
+    name: req.body.name,
+    description: req.body.description,
+    dosage: req.body.dosage,
+    side_effects: req.body.sideEffects,
+    price: req.body.price,
+  });
+
+  newDrug.save();
+  res.send("Success");
 });
 
 module.exports = router;

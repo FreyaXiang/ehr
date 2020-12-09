@@ -27,26 +27,16 @@ class AddPatientModal extends Component {
       endingTop: "10%",
     };
     M.Modal.init(this.Modal, options);
-    const token = localStorage.jwtToken;
-    // Decode token and get user info and exp
-    const decoded = jwt_decode(token);
-    const url = "/api/users/dashboard/" + decoded.id;
-    const res = await axios.get(url);
-    const data = await res.data;
-    this.setState({
-      doctorName: data.name,
-      doctorEmail: data.email,
-    });
-    console.log(this.state);
   }
 
   constructor(props) {
     super();
     this.state = {
-      email: "",
-      comments: "",
-      doctorName: null,
-      doctorEmail: "",
+      name: "",
+      description: "",
+      dosage: "",
+      sideEffects: "",
+      price: "",
       errors: {},
     };
   }
@@ -55,24 +45,24 @@ class AddPatientModal extends Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    const newPatient = {
-      id: jwt_decode(localStorage.jwtToken).id,
-      email: this.state.email,
-      doctorName: this.state.doctorName,
-      doctorEmail: this.state.doctorEmail,
-      comments: this.state.comments,
+    const newDrug = {
+      name: this.state.name,
+      description: this.state.description,
+      dosage: this.state.dosage,
+      sideEffects: this.state.sideEffects,
+      price: this.state.price,
     };
-    console.log(newPatient);
+    console.log(newDrug);
     // sent an post request to api to add patient
     axios
-      .post("/api/users/patient", newPatient)
+      .post("/api/users/addDrugs", newDrug)
       .then((res) => {
         console.log(res.data);
         // alert(res.data);
       })
-      .catch((err) => alert("Add patient failed"));
+      .catch((err) => alert("Add drug failed"));
     // this.props.onAdd(newPatient);
-    M.toast({ html: "The request has been sent to the patient" });
+    M.toast({ html: "Successfully added to databse" });
     this.setState({
       email: "",
       comments: "",
@@ -88,31 +78,65 @@ class AddPatientModal extends Component {
           ref={(Modal) => {
             this.Modal = Modal;
           }}
-          id="modal1"
+          id="modal6"
           className="modal"
           style={{ height: "48%" }}
         >
           <div className="modal-content">
-            <h4>Add New Patient</h4>
+            <h4>Add New Drug</h4>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
+                  value={this.state.name}
+                  error={errors.name}
+                  id="name"
+                  type="text"
                 />
-                <label htmlFor="email">Patient Email</label>
+                <label htmlFor="name">Drug Name</label>
               </div>
+
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.comments}
-                  id="comments"
+                  value={this.state.description}
+                  error={errors.description}
+                  id="description"
                   type="text"
                 />
-                <label htmlFor="email">Comments</label>
+                <label htmlFor="text">Drug Description</label>
+              </div>
+
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.dosage}
+                  error={errors.dosage}
+                  id="dosage"
+                  type="text"
+                />
+                <label htmlFor="dosage">Dosage</label>
+              </div>
+
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.sideEffects}
+                  error={errors.sideEffects}
+                  id="sideEffects"
+                  type="text"
+                />
+                <label htmlFor="sideEffects">Side Effects</label>
+              </div>
+
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.price}
+                  id="price"
+                  type="text"
+                />
+                <label htmlFor="price">Price</label>
               </div>
 
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>

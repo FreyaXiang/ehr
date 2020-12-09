@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { Link } from "react-router-dom";
 
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -12,8 +11,7 @@ import Sidebar from "../Sidebar/Sidebar";
 
 import RemediRecord from "../RemediRecord";
 import Appointments from "../Appointments";
-import Clients from "../Clients";
-import InsurancePlan from "../InsurancePlan";
+import Bills from "../Bills";
 import Messages from "../Messages";
 import Patients from "../Patients/Patients";
 import Prescriptions from "../Prescriptions";
@@ -24,11 +22,6 @@ import Doctors from "../Doctors";
 import DashboardCard from "./DashboardCard";
 import Loader from "../Loader";
 
-const buttonstyle = {
-  margin: "20px 0",
-  width: "200px",
-};
-
 const sidebar_to_comp = {
   "My Re-medi Health Information": <RemediRecord />,
   Appointments: <Appointments />,
@@ -37,7 +30,7 @@ const sidebar_to_comp = {
   "My Doctors": <Doctors />,
   Settings: <Settings />,
   Messages: <Messages />,
-  Clients: <Clients />,
+  Bills: <Bills />,
   Patients: <Patients />,
   Drugs: <Drugs />,
   Dashboard: null,
@@ -130,46 +123,50 @@ class Dashboard extends Component {
                 <div className="dash-page">
                   {this.state.dashpage === null ? (
                     <div className="page-container">
-                      <h4
+                      <h2
                         style={{
-                          display: "flex",
-                          justifyContent: "start",
-                          marginTop: "60px",
+                          marginTop: "125px",
                         }}
                       >
-                        <b>Welcome, {user.name.split(" ")[0]}</b>
-                      </h4>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          marginTop: "50px",
-                        }}
-                      >
-                        <DashboardCard
-                          title={
-                            this.state.role === "patient"
-                              ? "DOCTOR"
-                              : "PATIENTS"
-                          }
-                          img="accessible"
-                          number={
-                            this.state.role === "patient"
-                              ? this.state.staff.length
-                              : this.state.patients.length
-                          }
-                        />
-                        <DashboardCard
-                          title="APPOINTMENTS"
-                          img="book_online"
-                          number={this.state.appointments.length}
-                        />
-                        <DashboardCard
-                          title="MESSAGES"
-                          img="chat"
-                          number={this.state.messages.length}
-                        />
-                      </div>
+                        <b>Welcome, {user.name.split(" ")[0]} !</b>
+                      </h2>
+                      {(this.state.role === "patient" ||
+                        this.state.role === "staff") && (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginTop: "50px",
+                          }}
+                        >
+                          <DashboardCard
+                            title={
+                              this.state.role === "patient"
+                                ? "DOCTOR"
+                                : "PATIENTS"
+                            }
+                            img="accessible"
+                            role={this.state.role}
+                            number={
+                              this.state.role === "patient"
+                                ? this.state.staff.length
+                                : this.state.patients.length
+                            }
+                          />
+                          <DashboardCard
+                            role={this.state.role}
+                            title="APPOINTMENTS"
+                            img="book_online"
+                            number={this.state.appointments.length}
+                          />
+                          <DashboardCard
+                            role={this.state.role}
+                            title="MESSAGES"
+                            img="chat"
+                            number={this.state.messages.length}
+                          />
+                        </div>
+                      )}
                     </div>
                   ) : (
                     this.state.dashpage

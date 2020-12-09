@@ -61,7 +61,8 @@ class EditRecordsModal extends Component {
         .post("/api/users/updateBasics", newInfo)
         .then((res) => {
           console.log(res.data);
-          alert(res.data);
+          // alert(res.data);
+          M.toast({ html: "Success!" });
         })
         .catch((err) => alert("Edit Information failed"));
     }
@@ -71,7 +72,8 @@ class EditRecordsModal extends Component {
         .post("/api/users/updateHealthRecords", newInfo)
         .then((res) => {
           console.log(res.data);
-          alert(res.data);
+          // alert(res.data);
+          M.toast({ html: "Success!" });
         })
         .catch((err) => alert("Edit Health Records failed"));
     }

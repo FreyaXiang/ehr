@@ -54,12 +54,12 @@ export default class Records extends Component {
             >
               <i className="material-icons">add</i>
             </a>
-            <a
+            {/* <a
               className="btn-floating waves-effect red darken-3 addIcon modal-trigger"
               href="#modal3"
             >
               <i className="material-icons">edit</i>
-            </a>
+            </a> */}
           </div>
         </div>
         {this.state.loading ? (
@@ -79,9 +79,15 @@ export default class Records extends Component {
                     <div className="col s6 m6">
                       <div className="card" style={patientCard}>
                         <div className="card-content">
-                          <span className="card-title">{index + 1 + "."}</span>
-                          <p>{item.date}</p>
+                          <span className="card-title">
+                            <b>
+                              {index + 1 + "."} {item.date}
+                            </b>
+                          </span>
                           <p>{item.description}</p>
+                        </div>
+                        <div className="card-action">
+                          <a className="red-text text-darken-3">Edit</a>
                         </div>
                       </div>
                     </div>

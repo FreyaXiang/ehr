@@ -1,31 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Drug = ({ book }) => {
+const Drug = ({ drug }) => {
   return (
-    <li className="col s11 m6">
-      <div className="card">
-        <div className="card-img">
-          <img
-            alt={`${book.volumeInfo.title} book`}
-            src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-          />
-          <h3 className="card-title">{book.volumeInfo.title}</h3>
-        </div>
+    <li className="col s6 m4">
+      <div className="card" style={{ textAlign: "left" }}>
         <div className="card-content">
-          <p>{book.volumeInfo.authors}</p>
-          <p>{book.volumeInfo.publishedDate}</p>
+          <h5 className="card-title">{drug.name}</h5>
+          <p>
+            <b>Description: </b>
+            {drug.description}
+          </p>
+          <p>
+            <b>Dosage: </b>
+            {drug.dosage}
+          </p>
+          <p>
+            <b>Side Effects: </b>
+            {drug.side_effects}
+          </p>
+          <p>
+            <b>Price(￥): </b>
+            {drug.price}
+          </p>
         </div>
       </div>
     </li>
   );
 };
 
-const DrugList = ({ books }) => {
+const DrugList = ({ drugs }) => {
   return (
     <ul className="row" style={{ marginTop: "40px" }}>
-      {books.items.map((book, index) => {
-        return <Drug book={book} key={index} />;
+      {drugs.map((drug, index) => {
+        return <Drug drug={drug} key={index} />;
       })}
     </ul>
   );

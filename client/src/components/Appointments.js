@@ -66,6 +66,7 @@ const availableTime = [
 
 export default function Appointments(props) {
   const [userInfo, setUserInfo] = useState({});
+  const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // fecth data from api
@@ -77,6 +78,7 @@ export default function Appointments(props) {
       const url = "/api/users/dashboard/" + decoded.id;
       const res = await axios.get(url);
       const data = await res.data;
+      setAppointments(data.appointments);
       setUserInfo(data);
       setLoading(false);
       return data;
@@ -86,8 +88,6 @@ export default function Appointments(props) {
   }, []);
 
   console.log(loading);
-
-  const [appointments, setAppointments] = useState([]);
   const [times, setTimes] = useState(availableTime);
 
   function handleTimes(day, time) {
@@ -126,12 +126,12 @@ export default function Appointments(props) {
           </div>
         ) : (
           <div className="row">
-            {userInfo.appointments.length === 0 && (
+            {appointments.length === 0 && (
               <h6 style={{ margin: "40px" }}>
                 You don't have any appointments yet.
               </h6>
             )}
-            {userInfo.appointments.map((item, index) => {
+            {appointments.map((item, index) => {
               return (
                 <AppointmentCard
                   key={index}

@@ -51,16 +51,34 @@ export default function Doctors(props) {
             )}
             {doctors.map((item, index) => {
               return (
-                <div className="col s6 m4" key={index}>
+                <div className="col s6" key={index}>
                   <div className="card" style={doctorCard}>
                     <div className="card-content">
-                      <span className="card-title">{item.name}</span>
-                      <p>Email: {item.email}</p>
+                      <span className="card-title">
+                        <b>{item.name}</b>
+                      </span>
+                      <p>
+                        <b>Email:</b> {item.email}
+                      </p>
+                      <p>
+                        <b>Department:</b> Inpatient Service(IP)
+                      </p>
+                      <p>
+                        <b>Position:</b> Main Doctor
+                      </p>
                     </div>
                     <div className="card-action">
+                      <div>
+                        <a
+                          className="blue-text text-darken-3"
+                          style={{ cursor: "pointer" }}
+                        >
+                          Request Appointment
+                        </a>
+                      </div>
                       <a
                         className="red-text text-darken-3"
-                        href={"/appointments/" + props.id}
+                        style={{ cursor: "pointer" }}
                       >
                         Delete
                       </a>

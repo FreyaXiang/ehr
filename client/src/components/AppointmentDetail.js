@@ -4,6 +4,8 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import M from "materialize-css";
+import Loader from "./Loader";
 
 const AppointmentDetail = ({ match }) => {
   const [patients, setPatient] = useState({});
@@ -57,10 +59,12 @@ const AppointmentDetail = ({ match }) => {
       .post("/api/users/endAppointment", data)
       .then((res) => {
         console.log(res.data);
-        alert(res.data);
+        // alert(res.data);
+        M.toast({ html: "Successfully closed" });
       })
       .catch((err) => alert(err));
     // this.props.history.push("/dashboard");
+    window.location.replace("http://localhost:3000/dashboard");
   };
 
   const handleSubmit = (e) => {
@@ -78,7 +82,8 @@ const AppointmentDetail = ({ match }) => {
       .post("/api/users/prescription", newPrescription)
       .then((res) => {
         console.log(res.data);
-        alert(res.data);
+        // alert(res.data);
+        M.toast({ html: "The prescription has been sent to patient" });
       })
       .catch((err) => alert("Add Prescription failed"));
     setForm({ drugs: "", description: "" });
@@ -95,7 +100,9 @@ const AppointmentDetail = ({ match }) => {
           </a>
         </div>
         {loading ? (
-          <div style={{ height: "75vh" }}>loading...</div>
+          <div>
+            <Loader loading={loading} />
+          </div>
         ) : (
           <div style={{ padding: "0 3% 3%" }}>
             <h4>Appointment With {patients.name}</h4>
@@ -215,18 +222,19 @@ const AppointmentDetail = ({ match }) => {
                       >
                         Send
                       </button>
-                      <button
+                      <a
                         style={{
                           width: "150px",
                           borderRadius: "3px",
                           letterSpacing: "1.5px",
                           margin: "1rem auto 2rem",
                         }}
+                        href="/dashboard"
                         className="btn btn-large waves-effect hoverable red darken-3"
                         onClick={endAppointment}
                       >
                         End
-                      </button>
+                      </a>
                     </div>
                   </form>
                 </div>
@@ -261,7 +269,7 @@ const AppointmentDetail = ({ match }) => {
           </div>
         )}
       </div>
-      <Footer role="staff" />
+      {/* <Footer role="staff" /> */}
     </div>
   );
 };

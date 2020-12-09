@@ -59,7 +59,8 @@ class AddRecordsModal extends Component {
         .post("/api/users/addHealthInfo", newInfo)
         .then((res) => {
           console.log(res.data);
-          alert(res.data);
+          // alert(res.data);
+          M.toast({ html: "Success!" });
         })
         .catch((err) => alert("Add Information failed"));
     }
@@ -69,7 +70,8 @@ class AddRecordsModal extends Component {
         .post("/api/users/addHealthRecords", newInfo)
         .then((res) => {
           console.log(res.data);
-          alert(res.data);
+          // alert(res.data);
+          M.toast({ html: "Success!" });
         })
         .catch((err) => alert("Add Records failed"));
       this.props.onAdd({
