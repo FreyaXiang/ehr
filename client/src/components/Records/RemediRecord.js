@@ -35,7 +35,6 @@ export default class RemediRecord extends Component {
       disability: data.disabilities,
       loading: false,
     });
-    console.log(this.state);
   }
 
   render() {

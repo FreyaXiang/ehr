@@ -31,10 +31,7 @@ export default function Patients(props) {
       return data.patients;
     }
     var data = fetchData();
-    console.log(data);
   }, []);
-
-  console.log(patients);
 
   return (
     <div>

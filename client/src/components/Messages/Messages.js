@@ -34,7 +34,6 @@ export default class Messages extends Component {
       email: data.email,
       loading: false,
     });
-    console.log(this.state.messages);
   }
 
   async removeCard(id) {

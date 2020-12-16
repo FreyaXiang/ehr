@@ -45,7 +45,6 @@ const AppointmentDetail = ({ match }) => {
       return data.patients;
     }
     var data = fetchData();
-    console.log(data);
   }, []);
 
   const endAppointment = (e) => {

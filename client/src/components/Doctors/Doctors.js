@@ -23,13 +23,11 @@ export default function Doctors(props) {
       const url = "/api/users/dashboard/" + decoded.id;
       const res = await axios.get(url);
       const data = await res.data;
-      console.log(data.staff);
       setDoctors(data.staff);
       setLoading(false);
       return data.staff;
     }
     var data = fetchData();
-    console.log(data);
   }, []);
 
   return (

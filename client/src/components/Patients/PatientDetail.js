@@ -29,7 +29,6 @@ const PatientDetail = ({ match }) => {
       return data.patients;
     }
     var data = fetchData();
-    console.log(data);
   }, []);
 
   return (

@@ -84,14 +84,11 @@ export default function Appointments(props) {
       return data;
     }
     var data = fetchData();
-    // setLoading(false);
   }, []);
 
-  console.log(loading);
   const [times, setTimes] = useState(availableTime);
 
   function handleTimes(day, time) {
-    console.log(day + " " + time);
     setTimes((prev) => {
       times[day][1][time][1] = true;
       return times;

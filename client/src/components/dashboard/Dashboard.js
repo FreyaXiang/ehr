@@ -67,7 +67,6 @@ class Dashboard extends Component {
       patients: data.patients,
       loading: false,
     });
-    console.log(this.state);
   }
 
   handleClick(item) {

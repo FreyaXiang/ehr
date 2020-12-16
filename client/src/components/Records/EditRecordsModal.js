@@ -7,18 +7,6 @@ import jwt_decode from "jwt-decode";
 class EditRecordsModal extends Component {
   async componentDidMount() {
     const options = {
-      onOpenStart: () => {
-        console.log("Open Start");
-      },
-      onOpenEnd: () => {
-        console.log("Open End");
-      },
-      onCloseStart: () => {
-        console.log("Close Start");
-      },
-      onCloseEnd: () => {
-        console.log("Close End");
-      },
       inDuration: 250,
       outDuration: 250,
       opacity: 0.5,

@@ -32,7 +32,6 @@ export default class Records extends Component {
       healthRecords: data.health_records,
       loading: false,
     });
-    console.log(this.state);
   }
 
   onAdd(newRecords) {

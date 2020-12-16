@@ -9,18 +9,6 @@ var weekday = d.getDay();
 class AddAppointmentModal extends Component {
   componentDidMount() {
     const options1 = {
-      onOpenStart: () => {
-        console.log("Open Start");
-      },
-      onOpenEnd: () => {
-        console.log("Open End");
-      },
-      onCloseStart: () => {
-        console.log("Close Start");
-      },
-      onCloseEnd: () => {
-        console.log("Close End");
-      },
       inDuration: 250,
       outDuration: 250,
       opacity: 0.5,
@@ -60,8 +48,6 @@ class AddAppointmentModal extends Component {
     axios
       .post("/api/users/validateAppoint", newUser)
       .then((res) => {
-        console.log(res.data);
-        // alert(res.data);
         M.toast({ html: "Successfully scheduled!" });
       })
       .catch((err) => alert("Appointment failed"));
@@ -77,11 +63,9 @@ class AddAppointmentModal extends Component {
       for (var i in this.props.availableTime) {
         if (this.props.availableTime[i][0] === daystr) {
           day = i;
-          console.log(day);
           for (var j in this.props.availableTime[i][1]) {
             if (this.props.availableTime[i][1][j][0] === timestr) {
               time = j;
-              console.log(time);
               break;
             }
           }

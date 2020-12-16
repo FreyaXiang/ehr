@@ -25,7 +25,6 @@ export default function DashboardCard(props) {
         style={{
           display: "flex",
           alignItems: "center",
-          //   justifyContent: "space-between",
         }}
       >
         <div

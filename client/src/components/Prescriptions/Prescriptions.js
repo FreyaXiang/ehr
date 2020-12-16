@@ -22,7 +22,6 @@ export default class Prescriptions extends Component {
       prescriptions: data.prescriptions,
       loading: false,
     });
-    console.log(this.state);
   }
 
   render() {
