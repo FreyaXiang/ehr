@@ -3,7 +3,6 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
-const passport = require("passport");
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -247,7 +246,7 @@ router.post("/updateBasics", (req, res) => {
       foundUser.weight = req.body.changes;
     } else if (req.body.item === "height") {
       foundUser.height = req.body.changes;
-    } else {
+    } else if (req.body.item === "gender") {
       foundUser.gender = req.body.changes;
     }
     foundUser.save();
@@ -278,8 +277,7 @@ router.post("/addHealthInfo", (req, res) => {
 // @route POST api/users/addHealthRecords
 // @add patient health records
 router.post("/addHealthRecords", (req, res) => {
-  // should validate user input...
-
+  // validate user input
   User.findOne({ _id: req.body.id }, function (err, foundUser) {
     const newRecords = new HealthRecord({
       patientID: req.body.id,

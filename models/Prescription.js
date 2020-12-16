@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Define Prescription MongoDB component
+// This schema is used for keeping prescription info
+// Will be displayed in patient dashboard
 const schema_prescription = new Schema({
   drugs: {
     type: String,

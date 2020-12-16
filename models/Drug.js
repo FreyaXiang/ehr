@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// This schema is used for keeping drug information
 const schema_drug = new mongoose.Schema({
   name: {
     type: String,

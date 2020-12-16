@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// This schema is used for doctor making appointments
 const schema_appointment = new Schema({
   patientEmail: {
     type: String,

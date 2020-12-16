@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Create Schema
+// This schema is used for storing user information
+// Combined for Patient, Doctor, and Staff
 const UserSchema = new Schema({
+  // fields for three roles
   name: {
     type: String,
     required: true,
@@ -23,15 +25,18 @@ const UserSchema = new Schema({
     type: String,
     require: true,
   },
+  // fields for patients/doctors
   appointments: {
     type: Array,
     default: [],
   },
   patients: {
+    // for doctors
     type: Array,
     default: [],
   },
   staff: {
+    // for staff
     type: Array,
     default: [],
   },
@@ -39,6 +44,7 @@ const UserSchema = new Schema({
     type: Array,
     default: [],
   },
+  // fields for patients only
   height: {
     type: String,
     default: "",
@@ -82,6 +88,7 @@ const UserSchema = new Schema({
     type: Array,
     default: [],
   },
+  // fields for staff/doctors only
   org: {
     type: String,
   },

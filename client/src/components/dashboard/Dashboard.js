@@ -6,7 +6,6 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 import Sidebar from "../Sidebar/Sidebar";
 
 import RemediRecord from "../Records/RemediRecord";
@@ -50,7 +49,6 @@ class Dashboard extends Component {
           : this.props.dashpage,
     };
     this.handleClick = this.handleClick.bind(this);
-    // this.renderSwitch = this.renderSwitch.bind(this);
   }
 
   async componentDidMount() {
@@ -80,16 +78,6 @@ class Dashboard extends Component {
       dashpage: dashpage,
     });
   }
-
-  // renderSwitch(dashpage) {
-  //   return dashpage === null ? (
-  //     <div className="dash-page" style={{ color: "#CCCCCC" }}>
-  //       Let's fill out some health forms!
-  //     </div>
-  //   ) : (
-  //     dashpage
-  //   );
-  // }
 
   onLogoutClick = (e) => {
     e.preventDefault();
@@ -170,7 +158,6 @@ class Dashboard extends Component {
                 </div>
               </div>
             </div>
-            {/* <Footer role={this.state.role} /> */}
           </div>
         )}
       </div>
