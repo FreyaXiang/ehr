@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import AppointmentCard from "./AppointmentCard";
-import AddAppointmentModal from "./AddAppointmentModal";
-import SendAppointmentModal from "./SendAppointmentModel";
-import "./PageContainer.css";
+import AppointmentCard from "../Appointments/AppointmentCard";
+import AddAppointmentModal from "../Appointments/AddAppointmentModal";
+import SendAppointmentModal from "../Appointments/SendAppointmentModel";
+import "../layout/PageContainer.css";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import Loader from "./Loader";
+import Loader from "../layout/Loader";
 
 const availableTime = [
   ["Sunday", []],

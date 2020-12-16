@@ -3,7 +3,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 import MessageCard from "./MessageCard";
-import Loader from "./Loader";
+import Loader from "../layout/Loader";
 
 export default class Messages extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export default class Messages extends Component {
 
   async removeCard(id) {
     this.setState((prevState) => ({
-      messages: prevState.messages.filter((item, index) => index != id),
+      messages: prevState.messages.filter((item, index) => index !== id),
     }));
   }
 

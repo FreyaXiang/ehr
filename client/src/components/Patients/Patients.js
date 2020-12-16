@@ -3,15 +3,9 @@ import PatientCard from "./PatientCard";
 import AddPatientModal from "./AddPatientModal";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import Loader from "../Loader";
+import Loader from "../layout/Loader";
 
-import "../PageContainer.css";
-
-const patientInfo = [];
-
-//{ name: "Alice Chen", Tel: "123445677", Email: "abc@xxx.com" },
-// { name: "Bob Lee", Tel: "123445677", Email: "abc@xxx.com" },
-// { name: "Tom Liu", Tel: "123445677", Email: "abc@xxx.com" },
+import "../layout/PageContainer.css";
 
 export default function Patients(props) {
   const [patients, setPatient] = useState([]);

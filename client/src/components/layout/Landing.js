@@ -13,7 +13,7 @@ class Landing extends Component {
       >
         <div className="row">
           <div className="col s12 center-align">
-            <img src={Logo} className="Header-logo" />
+            <img src={Logo} alt="logo" className="Header-logo" />
             <h2 className="black-text">
               <b>Welcome to Re-medi</b>
             </h2>

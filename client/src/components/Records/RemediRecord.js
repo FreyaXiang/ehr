@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import "./PageContainer.css";
+import "../layout/PageContainer.css";
 import EditRecordsModal from "./EditRecordsModal";
 import AddRecordsModal from "./AddRecordsModal";
 

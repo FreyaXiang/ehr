@@ -9,7 +9,7 @@ class Header extends Component {
       <div>
         <div className="Header">
           <a href="/dashboard">
-            <img src={Logo} className="Header-logo" />
+            <img src={Logo} alt="logo" className="Header-logo" />
           </a>
           <div className="logout" onClick={this.props.onLogoutClick}>
             <i className="material-icons right">exit_to_app</i>

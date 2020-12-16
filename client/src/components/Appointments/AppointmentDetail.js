@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./PageContainer.css";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
+import "../layout/PageContainer.css";
+import Header from "../Header/Header";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import M from "materialize-css";
-import Loader from "./Loader";
+import Loader from "../layout/Loader";
 
 const AppointmentDetail = ({ match }) => {
   const [patients, setPatient] = useState({});

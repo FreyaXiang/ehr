@@ -10,7 +10,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateAddPatientInput = require("../../validation/addPatient");
 
-// Load User model
+// Load models
 const User = require("../../models/User");
 const Request = require("../../models/Request");
 const Appointment = require("../../models/Appointment");
@@ -70,24 +70,19 @@ router.post("/register", (req, res) => {
 // @access Public
 router.post("/login", (req, res) => {
   // Form validation
-
   const { errors, isValid } = validateLoginInput(req.body);
-
   // Check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
   const email = req.body.email;
   const password = req.body.password;
-
   // Find user by email
   User.findOne({ email }).then((user) => {
     // Check if user exists
     if (!user) {
       return res.status(404).json({ emailnotfound: "Email not found" });
     }
-
     // Check password
     bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
@@ -97,7 +92,6 @@ router.post("/login", (req, res) => {
           id: user.id,
           name: user.name,
         };
-
         // Sign token
         jwt.sign(
           payload,
@@ -121,7 +115,9 @@ router.post("/login", (req, res) => {
   });
 });
 
-// get user info by _id
+// @route GET api/users/dashboard/:userId
+// @get user info by _id
+// @access Public
 router.get("/dashboard/:userId", (req, res) => {
   User.findOne({ _id: req.params.userId }, function (err, foundUser) {
     if (foundUser) {
@@ -132,7 +128,9 @@ router.get("/dashboard/:userId", (req, res) => {
   });
 });
 
-// get user info by email
+// @route GET api/users/dashboard/findPatientEmail/:email
+// @get user info by email
+// @access Public
 router.get("/dashboard/findPatientEmail/:email", (req, res) => {
   User.findOne({ email: req.params.email }, function (err, foundUser) {
     if (foundUser) {
@@ -143,7 +141,8 @@ router.get("/dashboard/findPatientEmail/:email", (req, res) => {
   });
 });
 
-// add patient
+// @route POST api/users/patient
+// @add patient by doctor
 router.post("/patient", (req, res) => {
   // Form validation
 
@@ -180,19 +179,10 @@ router.post("/patient", (req, res) => {
     user.save();
     res.send("The request has sent to the patient");
   });
-
-  // User.findOne({ _id: req.body.id }, function (err, foundUser) {
-  //   if (foundUser) {
-  //     // foundUser.patients.push(userAdd);
-  //     // res.send("Success!");
-  //     // foundUser.save();
-  //   } else {
-  //     res.send("No User was found.");
-  //   }
-  // });
 });
 
-// ignore msg from staff
+// @route DELETE api/users/messages/:userAndIndex
+// @patients ignore msg from staff
 router.delete("/messages/:userAndIndex", (req, res) => {
   var user = req.params.userAndIndex.split("*")[0];
   var index = req.params.userAndIndex.split("*")[1];
@@ -206,7 +196,8 @@ router.delete("/messages/:userAndIndex", (req, res) => {
   });
 });
 
-// agree msg from staff
+// @route PUT api/users/messages/:patientStaffIndex
+// @patients agree msg from staff
 router.put("/messages/:patientStaffIndex", (req, res) => {
   var patientId = req.params.patientStaffIndex.split("*")[0];
   var index = req.params.patientStaffIndex.split("*")[2];
@@ -238,7 +229,8 @@ router.put("/messages/:patientStaffIndex", (req, res) => {
   });
 });
 
-// update user health basics
+// @route POST api/users/updateBasics
+// @patients update their health basics
 router.post("/updateBasics", (req, res) => {
   if (
     req.body.item.toLowerCase() !== "birthday" &&
@@ -263,7 +255,8 @@ router.post("/updateBasics", (req, res) => {
   });
 });
 
-// update user allergy and disability
+// @route POST api/users/addHealthInfo
+// @update patient allergy and disability info
 router.post("/addHealthInfo", (req, res) => {
   if (
     req.body.item.toLowerCase() !== "allergy" &&
@@ -282,7 +275,8 @@ router.post("/addHealthInfo", (req, res) => {
   });
 });
 
-// add patient health records
+// @route POST api/users/addHealthRecords
+// @add patient health records
 router.post("/addHealthRecords", (req, res) => {
   // should validate user input...
 
@@ -298,7 +292,8 @@ router.post("/addHealthRecords", (req, res) => {
   });
 });
 
-// update patient health records
+// @route POST api/users/updateHealthRecords
+// @update patient health records
 router.post("/updateHealthRecords", (req, res) => {
   // validate input
   User.findOne({ _id: req.body.id }, function (err, foundUser) {
@@ -316,7 +311,8 @@ router.post("/updateHealthRecords", (req, res) => {
   });
 });
 
-// send user appointment request to doctor
+// @route POST api/users/sendAppointRequest
+// @patients send appointment request to doctor
 router.post("/sendAppointRequest", (req, res) => {
   User.findOne({ email: req.body.doctorEmail }, function (err, user) {
     if (user) {
@@ -340,7 +336,8 @@ router.post("/sendAppointRequest", (req, res) => {
   });
 });
 
-// doctor validate the appointment
+// @route POST api/users/validateAppoint
+// @doctor validates the appointment
 router.post("/validateAppoint", (req, res) => {
   User.findOne({ email: req.body.staffEmail }, function (err, user) {
     // send request to patient
@@ -378,7 +375,8 @@ router.post("/validateAppoint", (req, res) => {
   });
 });
 
-// create prescription by doctor
+// @route POST api/users/prescription
+// @create prescription by doctor
 router.post("/prescription", (req, res) => {
   User.findOne({ email: req.body.patientEmail }, function (err, user) {
     // send request to patient
@@ -397,7 +395,8 @@ router.post("/prescription", (req, res) => {
   });
 });
 
-// end appointment by doctor
+// @route POST api/users/endAppointment
+// @end appointment by doctor
 router.post("/endAppointment", (req, res) => {
   User.findOne({ email: req.body.doctorEmail }, function (err, user) {
     var itemToPop;
@@ -408,8 +407,6 @@ router.post("/endAppointment", (req, res) => {
     });
     user.appointments.pop(itemToPop);
     user.save();
-    // res.send("The prescription has been sent to the patient");
-    // res.send("" + user.appointments);
   });
   User.findOne({ email: req.body.patientEmail }, function (err, user) {
     var itemToPop;
@@ -425,7 +422,8 @@ router.post("/endAppointment", (req, res) => {
   });
 });
 
-// find drugs
+// @route GET api/users/findDrugs/:drugName
+// @find drugs by drug name
 router.get("/findDrugs/:drugName", (req, res) => {
   Drug.find({ name: req.params.drugName }, function (err, drugs) {
     if (drugs) {
@@ -436,7 +434,8 @@ router.get("/findDrugs/:drugName", (req, res) => {
   });
 });
 
-// add drugs
+// @route POST api/users/addDrugs
+// @add drugs
 router.post("/addDrugs", (req, res) => {
   const newDrug = new Drug({
     name: req.body.name,

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Header/Header";
-import Loader from "../Loader";
+import Loader from "../layout/Loader";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
-import "../PageContainer.css";
+import "../layout/PageContainer.css";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 

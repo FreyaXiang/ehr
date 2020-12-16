@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 class AddPatientModal extends Component {
   async componentDidMount() {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import Loader from "./Loader";
+import Loader from "../layout/Loader";
 export default class Prescriptions extends Component {
   constructor(props) {
     super(props);

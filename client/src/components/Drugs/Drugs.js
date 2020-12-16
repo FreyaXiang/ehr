@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DrugSearchForm from "./DrugSearchForm";
-import Loader from "./Loader";
+import Loader from "../layout/Loader";
 import DrugList from "./DrugList";
 import jwt_decode from "jwt-decode";
 import AddDrugsModal from "./AddDrugsModal";
@@ -24,7 +24,6 @@ const Drugs = () => {
       return data;
     }
     var data = fetchData();
-    // setLoading(false);
   }, []);
 
   const [searchTerm, setSearchTerm] = useState("");

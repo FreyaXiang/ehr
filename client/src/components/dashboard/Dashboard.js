@@ -9,18 +9,16 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Sidebar from "../Sidebar/Sidebar";
 
-import RemediRecord from "../RemediRecord";
-import Appointments from "../Appointments";
-import Bills from "../Bills";
-import Messages from "../Messages";
+import RemediRecord from "../Records/RemediRecord";
+import Appointments from "../Appointments/Appointments";
+import Messages from "../Messages/Messages";
 import Patients from "../Patients/Patients";
-import Prescriptions from "../Prescriptions";
-import Settings from "../Settings";
-import Records from "../Records";
-import Drugs from "../Drugs";
-import Doctors from "../Doctors";
+import Prescriptions from "../Prescriptions/Prescriptions";
+import Records from "../Records/Records";
+import Drugs from "../Drugs/Drugs";
+import Doctors from "../Doctors/Doctors";
 import DashboardCard from "./DashboardCard";
-import Loader from "../Loader";
+import Loader from "../layout/Loader";
 
 const sidebar_to_comp = {
   "My Re-medi Health Information": <RemediRecord />,
@@ -28,9 +26,7 @@ const sidebar_to_comp = {
   Prescriptions: <Prescriptions />,
   "Medical Records": <Records />,
   "My Doctors": <Doctors />,
-  Settings: <Settings />,
   Messages: <Messages />,
-  Bills: <Bills />,
   Patients: <Patients />,
   Drugs: <Drugs />,
   Dashboard: null,

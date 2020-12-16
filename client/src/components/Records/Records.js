@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import "./PageContainer.css";
+import "../layout/PageContainer.css";
 import EditRecordsModal from "./EditRecordsModal";
 import AddRecordsModal from "./AddRecordsModal";
-import Loader from "./Loader";
+import Loader from "../layout/Loader";
 
 const patientCard = {
   textAlign: "left",

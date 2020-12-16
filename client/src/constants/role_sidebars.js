@@ -6,10 +6,9 @@ const role_sidebarinfo = {
     "Prescriptions",
     "Medical Records",
     "Messages",
-    "Settings",
   ],
-  staff: ["Patients", "Appointments", "Messages", "Drugs", "Settings"],
-  staff_low: ["Bills", "Drugs", "Settings"],
+  staff: ["Patients", "Appointments", "Messages", "Drugs"],
+  staff_low: ["Drugs"],
 };
 
 module.exports = {

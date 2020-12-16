@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 var d = new Date();
 var weekday = d.getDay();
