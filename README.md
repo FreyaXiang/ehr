@@ -1,8 +1,11 @@
-# mern-auth
+# Re-medi
 
-## Configuration
+An Electronic Health Record System Project for CSCI-SHU 410 Software Engineering\
+By Andrew Lee, Andrew Liu, Xin Xiang, Zane Fadul\
 
-Make sure to add your own `MONGOURI` from your [mLab](http://mlab.com) database in `config/keys.js`.
+## Before running our app
+
+Make sure to add your own `MONGOURI` from your mongodb database in `config/keys.js`.
 
 ```javascript
 module.exports = {
@@ -11,7 +14,7 @@ module.exports = {
 };
 ```
 
-## Quick Start
+## How to run our app
 
 ```javascript
 // Install dependencies for server & client
@@ -23,4 +26,8 @@ npm run dev
 // Server runs on http://localhost:5000 and client on http://localhost:3000
 ```
 
-For deploying to Heroku, please refer to [this](https://www.youtube.com/watch?v=71wSzpLyW9k) helpful video by TraversyMedia.
+## Directory guide
+
+## Detailed documentation for our project
+
+Link here:
