@@ -1,7 +1,7 @@
 # Re-medi
 
 An Electronic Health Record System Project for CSCI-SHU 410 Software Engineering\
-By Andrew Lee, Andrew Liu, Xin Xiang, Zane Fadul\
+By Andrew Lee, Andrew Liu, Xin Xiang, Zane Fadul
 
 ## Before running our app
 
@@ -28,6 +28,18 @@ npm run dev
 
 ## Directory guide
 
-## Detailed documentation for our project
+We are following the MVC project architecture.\
+M: model folder\
+ The model folder contains all the mongodb database schema.\
+V: client folder\
+ The client folder contains all the front end rendering files, including Redux files, React components, etc.\
+C: routes/api folder\
+ This folder contains users.js, which is the API file of our project.\
+
+Other folders:\
+validation folder: contains all the files validating user input\
+config folder: contains configuration files like database keys\
+
+## Detailed documentation
 
 Link here:
