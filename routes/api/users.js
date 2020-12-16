@@ -142,6 +142,7 @@ router.get("/dashboard/findPatientEmail/:email", (req, res) => {
 
 // @route POST api/users/patient
 // @add patient by doctor
+// @access Public
 router.post("/patient", (req, res) => {
   // Form validation
 
@@ -182,6 +183,7 @@ router.post("/patient", (req, res) => {
 
 // @route DELETE api/users/messages/:userAndIndex
 // @patients ignore msg from staff
+// @access Public
 router.delete("/messages/:userAndIndex", (req, res) => {
   var user = req.params.userAndIndex.split("*")[0];
   var index = req.params.userAndIndex.split("*")[1];
@@ -197,6 +199,7 @@ router.delete("/messages/:userAndIndex", (req, res) => {
 
 // @route PUT api/users/messages/:patientStaffIndex
 // @patients agree msg from staff
+// @access Public
 router.put("/messages/:patientStaffIndex", (req, res) => {
   var patientId = req.params.patientStaffIndex.split("*")[0];
   var index = req.params.patientStaffIndex.split("*")[2];
@@ -230,6 +233,7 @@ router.put("/messages/:patientStaffIndex", (req, res) => {
 
 // @route POST api/users/updateBasics
 // @patients update their health basics
+// @access Public
 router.post("/updateBasics", (req, res) => {
   if (
     req.body.item.toLowerCase() !== "birthday" &&
@@ -256,6 +260,7 @@ router.post("/updateBasics", (req, res) => {
 
 // @route POST api/users/addHealthInfo
 // @update patient allergy and disability info
+// @access Public
 router.post("/addHealthInfo", (req, res) => {
   if (
     req.body.item.toLowerCase() !== "allergy" &&
@@ -276,6 +281,7 @@ router.post("/addHealthInfo", (req, res) => {
 
 // @route POST api/users/addHealthRecords
 // @add patient health records
+// @access Public
 router.post("/addHealthRecords", (req, res) => {
   // validate user input
   User.findOne({ _id: req.body.id }, function (err, foundUser) {
@@ -292,6 +298,7 @@ router.post("/addHealthRecords", (req, res) => {
 
 // @route POST api/users/updateHealthRecords
 // @update patient health records
+// @access Public
 router.post("/updateHealthRecords", (req, res) => {
   // validate input
   User.findOne({ _id: req.body.id }, function (err, foundUser) {
@@ -311,6 +318,7 @@ router.post("/updateHealthRecords", (req, res) => {
 
 // @route POST api/users/sendAppointRequest
 // @patients send appointment request to doctor
+// @access Public
 router.post("/sendAppointRequest", (req, res) => {
   User.findOne({ email: req.body.doctorEmail }, function (err, user) {
     if (user) {
@@ -336,6 +344,7 @@ router.post("/sendAppointRequest", (req, res) => {
 
 // @route POST api/users/validateAppoint
 // @doctor validates the appointment
+// @access Public
 router.post("/validateAppoint", (req, res) => {
   User.findOne({ email: req.body.staffEmail }, function (err, user) {
     // send request to patient
@@ -375,6 +384,7 @@ router.post("/validateAppoint", (req, res) => {
 
 // @route POST api/users/prescription
 // @create prescription by doctor
+// @access Public
 router.post("/prescription", (req, res) => {
   User.findOne({ email: req.body.patientEmail }, function (err, user) {
     // send request to patient
@@ -389,12 +399,12 @@ router.post("/prescription", (req, res) => {
     user.prescriptions.push(newPrescription);
     user.save();
     res.send("The prescription has been sent to the patient");
-    // res.send("" + req.body.patientEmail);
   });
 });
 
 // @route POST api/users/endAppointment
 // @end appointment by doctor
+// @access Public
 router.post("/endAppointment", (req, res) => {
   User.findOne({ email: req.body.doctorEmail }, function (err, user) {
     var itemToPop;
@@ -422,6 +432,7 @@ router.post("/endAppointment", (req, res) => {
 
 // @route GET api/users/findDrugs/:drugName
 // @find drugs by drug name
+// @access Public
 router.get("/findDrugs/:drugName", (req, res) => {
   Drug.find({ name: req.params.drugName }, function (err, drugs) {
     if (drugs) {
@@ -434,6 +445,7 @@ router.get("/findDrugs/:drugName", (req, res) => {
 
 // @route POST api/users/addDrugs
 // @add drugs
+// @access Public
 router.post("/addDrugs", (req, res) => {
   const newDrug = new Drug({
     name: req.body.name,
