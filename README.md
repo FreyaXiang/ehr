@@ -34,11 +34,11 @@ M: model folder\
 V: client folder\
  The client folder contains all the front end rendering files, including Redux files, React components, etc.\
 C: routes/api folder\
- This folder contains users.js, which is the API file of our project.\
+ This folder contains users.js, which is the API file of our project.
 
 Other folders:\
 validation folder: contains all the files validating user input\
-config folder: contains configuration files like database keys\
+config folder: contains configuration files like database keys
 
 ## Detailed documentation
 
