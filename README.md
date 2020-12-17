@@ -43,3 +43,4 @@ config folder: contains configuration files like database keys
 ## Detailed documentation
 
 Link here:
+https://docs.google.com/document/d/12W-CvE5EfX01-1NETqMfSdJqNhf0vWcoSIt3ZMso_gM
